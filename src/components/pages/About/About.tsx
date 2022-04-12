@@ -7,7 +7,7 @@ const Component = ({}: Props) => {
   return (
     <div>
       <Link to="/">Home</Link>
-      <h1>About pages</h1>
+      <h1>About Page</h1>
     </div>
   );
 };
