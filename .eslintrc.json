@@ -46,25 +46,20 @@
     ],
     "react/jsx-uses-react": ["off"],
     "react/react-in-jsx-scope": ["off"],
+    "no-shadow": "off",
     "react/jsx-props-no-spreading": "off",
-    "no-shadow": "off"
+    "react/prop-types": "off", // Since we do not use prop-types
+    "react/require-default-props": "off", // Since we do not use prop-types
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": 0,
+    "react/no-unescaped-entities": 0
   },
   "overrides": [
     {
       // or whatever matches stories specified in .storybook/main.js
       "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
       "rules": {
-        // example of overriding a rule
-        "storybook/hierarchy-separator": "error",
-        // example of disabling a rule
-        "storybook/default-exports": "off",
-        "react/function-component-definition": [
-          2,
-          {
-            "namedComponents": "arrow-function",
-            "unnamedComponents": "arrow-function"
-          }
-        ]
+        "react/function-component-definition": 0
       }
     }
   ]
