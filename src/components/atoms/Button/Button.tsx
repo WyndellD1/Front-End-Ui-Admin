@@ -1,53 +1,46 @@
+import { Button } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button<{
-  isPrimary: boolean;
-  size: 'small' | 'medium' | 'large';
-}>`
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  border: 0;
-  border-radius: 3em;
-  cursor: pointer;
-  display: inline-block;
-  line-height: 1;
-
-  color: ${({ isPrimary }) => (isPrimary ? 'white' : '#333')};
-  background-color: ${({ isPrimary }) =>
-    isPrimary ? '#1ea7fd' : '#transparent'};
-
-  font-size: ${({ size }) =>
-    size === 'small' ? '12px' : size === 'medium' ? '14px' : '16px'};
-  padding: ${({ size }) =>
-    size === 'small'
-      ? '10px 16px'
-      : size === 'medium'
-      ? '11px 20px'
-      : '12px 24px'};
-`;
+const StyledButton = styled(Button)``;
 
 export type Props = {
-  primary?: boolean;
+  type?: 'primary' | 'ghost' | 'dashed' | 'link' | 'text' | 'default';
   backgroundColor?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'large' | 'middle' | 'small';
   label: string;
   onClick?: () => void;
+  isLoading?: boolean;
+  disabled?: boolean;
+  ghost?: boolean;
+  shape?: 'default' | 'circle' | 'round';
+  icon?: React.ReactElement;
 };
 
 const Component = ({
-  primary = false,
-  size = 'medium',
+  type = 'default',
+  size = 'middle',
+  shape = 'default',
   backgroundColor,
   label,
+  disabled,
+  ghost,
+  icon,
+  isLoading,
+  onClick,
   ...props
 }: Props) => {
   return (
     <StyledButton
-      isPrimary={primary}
+      type={type}
+      ghost={ghost}
+      disabled={disabled}
       size={size}
-      type="button"
+      icon={icon}
+      shape={shape}
+      loading={isLoading}
       style={{ backgroundColor }}
+      onClick={onClick}
       {...props}
     >
       {label}
