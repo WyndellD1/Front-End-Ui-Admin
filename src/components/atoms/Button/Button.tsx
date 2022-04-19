@@ -48,6 +48,7 @@ const Component = ({
       variant={type}
       disabled={disabled}
       size={size}
+      color={color}
       startIcon={startIcon}
       endIcon={endIcon}
       fullWidth={fullWidth}

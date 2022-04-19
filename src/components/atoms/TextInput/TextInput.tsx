@@ -2,8 +2,24 @@ import React, { useState } from 'react';
 import { InputAdornment, IconButton, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styled from 'styled-components';
+import { theme } from '../../../config';
 
-const StyledTextInput = styled(TextField)``;
+const StyledTextInput = styled(TextField)`
+  & label.Mui-focused {
+    color: ${theme.colors.secondary};
+  }
+  & .MuiInput-underline:after {
+    border-bottom-color: ${theme.colors.secondary};
+  }
+  & .MuiOutlinedInput-root {
+    &:hover fieldset {
+      border-color: ${theme.colors.secondary};
+    }
+    &.Mui-focused fieldset {
+      border-color: ${theme.colors.secondary};
+    }
+  }
+`;
 
 export type Props = {
   id: string;

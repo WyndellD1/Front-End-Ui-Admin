@@ -4,10 +4,21 @@ import styled from 'styled-components';
 import { TextInput } from '../../atoms/TextInput';
 import { DatePicker } from '../../molecules/DatePicker';
 import { Button } from '../../atoms/Button';
+import { theme } from '../../../config';
 
 const HelperText = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const StyledButton = styled(Button)`
+  &&& {
+    background-color: ${theme.colors.secondary};
+
+    :hover {
+      background-color: ${theme.colors.primary02};
+    }
+  }
 `;
 
 export type Props = {
@@ -48,7 +59,7 @@ const Component = ({ onChange }: Props) => {
         />
       </Grid>
       <Grid item xs={6}>
-        <DatePicker onChange={onChange} label="Middle Name" />
+        <DatePicker onChange={onChange} label="Birthdate" />
       </Grid>
       <Grid item xs={6}>
         <TextInput
@@ -96,7 +107,7 @@ const Component = ({ onChange }: Props) => {
         </HelperText>
       </Grid>
       <Grid item xs={12}>
-        <Button fullWidth type="contained" label="Register" />
+        <StyledButton fullWidth type="contained" label="Register" />
       </Grid>
     </Grid>
   );

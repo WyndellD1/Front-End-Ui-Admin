@@ -3,6 +3,7 @@ const colors = {
   white1: '#f3f1f1',
   secondary: '#6975a7',
   primary: '#823c53',
+  primary02: '#883A4F',
 };
 
 // Sample usage: @media ${theme.breakpoints.mobileAndTablet} { ...styling }

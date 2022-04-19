@@ -1,0 +1,2 @@
+1. Desktop images should be slideshow
+2. Mobile mockup scroll up and down (slow)
