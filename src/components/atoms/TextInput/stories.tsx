@@ -14,9 +14,11 @@ const Template: Story<Props> = (args: Props) => <TextInput {...args} />;
 export const InputText = Template.bind({});
 InputText.args = {
   type: 'text',
+  label: 'Text Input',
 };
 
 export const InputTextPassword = Template.bind({});
 InputTextPassword.args = {
   type: 'password',
+  label: 'Password Input',
 };

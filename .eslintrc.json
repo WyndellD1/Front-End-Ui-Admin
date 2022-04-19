@@ -38,9 +38,11 @@
     "react/prop-types": "off", // Since we do not use prop-types
     "react/require-default-props": "off", // Since we do not use prop-types
     "import/prefer-default-export": "off",
+    "react/jsx-no-useless-fragment": "off",
     "react/function-component-definition": "off",
     "react/no-unescaped-entities": "off",
     "no-empty-pattern": "off",
+    "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-unused-vars": ["warn"],
     "no-nested-ternary": "off"
   },

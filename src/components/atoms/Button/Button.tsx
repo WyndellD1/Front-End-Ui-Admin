@@ -1,44 +1,56 @@
-import { Button } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
+import { Button, IconButton } from '@mui/material';
 
 const StyledButton = styled(Button)``;
 
 export type Props = {
-  type?: 'primary' | 'ghost' | 'dashed' | 'link' | 'text' | 'default';
+  type?: 'contained' | 'outlined' | 'text';
   backgroundColor?: string;
-  size?: 'large' | 'middle' | 'small';
+  size?: 'small' | 'medium' | 'large';
   label: string;
   onClick?: () => void;
   isLoading?: boolean;
   disabled?: boolean;
-  ghost?: boolean;
-  shape?: 'default' | 'circle' | 'round';
-  icon?: React.ReactElement;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
+  iconButton?: React.ReactElement;
+  fullWidth?: boolean;
+  color?:
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'error'
+    | 'info'
+    | 'warning';
 };
 
 const Component = ({
-  type = 'default',
-  size = 'middle',
-  shape = 'default',
+  type = 'contained',
+  size = 'medium',
   backgroundColor,
   label,
   disabled,
-  ghost,
-  icon,
   isLoading,
+  startIcon,
+  endIcon,
+  color,
+  fullWidth,
+  iconButton,
   onClick,
   ...props
 }: Props) => {
-  return (
+  return iconButton ? (
+    <IconButton color={color}>{iconButton}</IconButton>
+  ) : (
     <StyledButton
-      type={type}
-      ghost={ghost}
+      variant={type}
       disabled={disabled}
       size={size}
-      icon={icon}
-      shape={shape}
-      loading={isLoading}
+      startIcon={startIcon}
+      endIcon={endIcon}
+      fullWidth={fullWidth}
       style={{ backgroundColor }}
       onClick={onClick}
       {...props}
