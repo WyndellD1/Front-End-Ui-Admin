@@ -16,6 +16,10 @@ const DetailsWrapper = styled.div`
   display: flex;
   flex: 1 1 40%;
   border-right: 1px solid red;
+
+  @media ${theme.breakpoints.mobileAndTablet} {
+    display: none;
+  }
 `;
 
 const FormWrapper = styled.div`
@@ -24,12 +28,20 @@ const FormWrapper = styled.div`
   flex-direction: column;
   padding: 10em;
   gap: 1em;
+
+  @media ${theme.breakpoints.mobile} {
+    padding: 1em;
+  }
 `;
 
 const SubTitle = styled.div`
   font-size: 14px;
   font: normal normal normal 14px/18px Montserrat;
   color: ${theme.colors.black01};
+
+  @media ${theme.breakpoints.mobile} {
+    display: none;
+  }
 `;
 
 const HelperText = styled.div`
@@ -43,6 +55,10 @@ const HelperText = styled.div`
 const NavigationBar = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media ${theme.breakpoints.mobile} {
+    display: none;
+  }
 `;
 
 const HomepageLinkContainer = styled.div`
@@ -99,7 +115,7 @@ const Component = ({}: Props) => {
         </SubHeader>
         <SocialMedia />
         <HelperText>or create using our own form</HelperText>
-        <RegistrationForm onChange={handleChangeValue} />;
+        <RegistrationForm onChange={handleChangeValue} />
       </FormWrapper>
     </Container>
   );

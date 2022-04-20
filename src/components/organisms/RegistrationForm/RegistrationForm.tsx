@@ -30,6 +30,14 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const RadioGroupContainer = styled.div`
+  display: flex;
+
+  @media ${theme.breakpoints.mobile} {
+    justify-content: center;
+  }
+`;
+
 export type Props = {
   onChange: (value: any) => void;
 };
@@ -47,7 +55,7 @@ const Component = ({ onChange }: Props) => {
           label="First Name"
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <TextInput
           size="small"
           id="middlename"
@@ -57,7 +65,7 @@ const Component = ({ onChange }: Props) => {
           label="Middle Name"
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <TextInput
           size="small"
           id="lastname"
@@ -67,20 +75,22 @@ const Component = ({ onChange }: Props) => {
           label="Last Name"
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <DatePicker onChange={onChange} size="small" label="Birthdate" />
       </Grid>
-      <Grid item xs={6}>
-        <RadioGroup
-          isRow
-          radioButtonSize="small"
-          label="Gender"
-          items={[
-            { label: 'Male', value: 'male' },
-            { label: 'Female', value: 'femmale' },
-          ]}
-          id="gender"
-        />
+      <Grid item xs={12} md={6}>
+        <RadioGroupContainer>
+          <RadioGroup
+            isRow
+            radioButtonSize="small"
+            label="Gender"
+            items={[
+              { label: 'Male', value: 'male' },
+              { label: 'Female', value: 'femmale' },
+            ]}
+            id="gender"
+          />
+        </RadioGroupContainer>
       </Grid>
       <Grid item xs={12}>
         <TextInput
