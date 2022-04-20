@@ -27,16 +27,19 @@ export type Props = {
   onChange: (date: any, keyboardInputValue?: string) => void;
   initialValue?: any | Date | number | string;
   label: string;
+  size?: 'medium' | 'small';
 };
 
-const Component = ({ onChange, initialValue, label }: Props) => {
+const Component = ({ onChange, initialValue, label, size }: Props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label={label}
         onChange={onChange}
         value={initialValue}
-        renderInput={(params) => <StyledTextField fullWidth {...params} />}
+        renderInput={(params) => (
+          <StyledTextField fullWidth size={size} {...params} />
+        )}
       />
     </LocalizationProvider>
   );

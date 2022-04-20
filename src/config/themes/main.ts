@@ -4,6 +4,7 @@ const colors = {
   secondary: '#6975a7',
   primary: '#823c53',
   primary02: '#883A4F',
+  black01: '#444444',
 };
 
 // Sample usage: @media ${theme.breakpoints.mobileAndTablet} { ...styling }
