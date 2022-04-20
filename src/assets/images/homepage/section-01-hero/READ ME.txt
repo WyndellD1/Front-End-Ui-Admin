@@ -1,0 +1,1 @@
+01. Hero Background - opacity 10, blur 5

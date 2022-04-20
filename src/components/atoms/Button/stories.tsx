@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import { SearchOutlined } from '@ant-design/icons';
+import SearchIcon from '@mui/icons-material/Search';
 import { Story } from '@storybook/react/types-6-0';
 import { Button } from '.';
 import { Props } from './Button';
@@ -20,7 +20,8 @@ PrimaryButton.args = {
 export const IconButton = Template.bind({});
 IconButton.args = {
   label: '',
-  icon: <SearchOutlined />,
-  shape: 'circle',
-  type: 'primary',
+  type: 'text',
+  iconButton: <SearchIcon />,
+  color: 'primary',
+  size: 'small',
 };
