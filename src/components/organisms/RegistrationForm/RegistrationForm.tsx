@@ -1,14 +1,23 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { TextInput } from '../../atoms/TextInput';
 import { DatePicker } from '../../molecules/DatePicker';
 import { Button } from '../../atoms/Button';
 import { theme } from '../../../config';
+import { RadioGroup } from '../../atoms/RadioGroup';
 
 const HelperText = styled.div`
+  font: normal normal normal 12px/15px Montserrat;
   display: flex;
   justify-content: center;
+`;
+
+const StyledLink = styled(Link)`
+  font: normal normal 600 12px/15px Montserrat;
+  color: ${theme.colors.secondary};
+  margin: 0 5px;
 `;
 
 const StyledButton = styled(Button)`
@@ -30,7 +39,7 @@ const Component = ({ onChange }: Props) => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextInput
-          size="medium"
+          size="small"
           id="firstname"
           fullWidth
           type="text"
@@ -40,7 +49,7 @@ const Component = ({ onChange }: Props) => {
       </Grid>
       <Grid item xs={6}>
         <TextInput
-          size="medium"
+          size="small"
           id="middlename"
           fullWidth
           type="text"
@@ -50,7 +59,7 @@ const Component = ({ onChange }: Props) => {
       </Grid>
       <Grid item xs={6}>
         <TextInput
-          size="medium"
+          size="small"
           id="lastname"
           type="text"
           fullWidth
@@ -59,21 +68,23 @@ const Component = ({ onChange }: Props) => {
         />
       </Grid>
       <Grid item xs={6}>
-        <DatePicker onChange={onChange} label="Birthdate" />
+        <DatePicker onChange={onChange} size="small" label="Birthdate" />
       </Grid>
       <Grid item xs={6}>
-        <TextInput
-          size="medium"
-          id="lastname"
-          fullWidth
-          type="text"
-          variant="outlined"
-          label="Last Name"
+        <RadioGroup
+          isRow
+          radioButtonSize="small"
+          label="Gender"
+          items={[
+            { label: 'Male', value: 'male' },
+            { label: 'Female', value: 'femmale' },
+          ]}
+          id="gender"
         />
       </Grid>
       <Grid item xs={12}>
         <TextInput
-          size="medium"
+          size="small"
           id="phone"
           fullWidth
           type="text"
@@ -83,7 +94,7 @@ const Component = ({ onChange }: Props) => {
       </Grid>
       <Grid item xs={12}>
         <TextInput
-          size="medium"
+          size="small"
           id="email"
           fullWidth
           type="text"
@@ -93,7 +104,7 @@ const Component = ({ onChange }: Props) => {
       </Grid>
       <Grid item xs={12}>
         <TextInput
-          size="medium"
+          size="small"
           id="password"
           fullWidth
           type="password"
@@ -103,7 +114,9 @@ const Component = ({ onChange }: Props) => {
       </Grid>
       <Grid item xs={12}>
         <HelperText>
-          By clicking Register, you agree to our Terms and Data Policy
+          By clicking Register, you agree to our{' '}
+          <StyledLink to="/">Terms</StyledLink> and
+          <StyledLink to="/"> Data Policy</StyledLink>
         </HelperText>
       </Grid>
       <Grid item xs={12}>
