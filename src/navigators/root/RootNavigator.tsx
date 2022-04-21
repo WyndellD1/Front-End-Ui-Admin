@@ -4,7 +4,7 @@ import { AboutPage } from '../../components/pages/About';
 import { RegisterPage } from '../../components/pages/Register';
 import { TodoPage } from '../../components/pages/Todo';
 
-const RootNavigator = (): React.ReactElement => {
+const RootNavigator = ({}): React.ReactElement => {
   return (
     <React.Suspense fallback={<div>loading routes...</div>}>
       <BrowserRouter>

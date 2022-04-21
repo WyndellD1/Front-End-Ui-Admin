@@ -44,7 +44,9 @@
     "no-empty-pattern": "off",
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-unused-vars": ["warn"],
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "react/no-array-index-key": "off",
+    "no-console": "off"
   },
   "overrides": [
     {

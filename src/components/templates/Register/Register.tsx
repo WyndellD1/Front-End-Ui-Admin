@@ -10,6 +10,11 @@ import { SocialMedia } from '../../organisms/SocialMedia';
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  height: 100%;
+
+  @media ${theme.breakpoints.mobile} {
+    margin-top: 3em;
+  }
 `;
 
 const DetailsWrapper = styled.div`
@@ -26,7 +31,7 @@ const FormWrapper = styled.div`
   display: flex;
   flex: 1 1 40%;
   flex-direction: column;
-  padding: 10em;
+  padding: 5em 10em;
   gap: 1em;
 
   @media ${theme.breakpoints.mobile} {
@@ -85,6 +90,12 @@ const StyledLink = styled(Link)`
   color: ${theme.colors.secondary};
 `;
 
+const HeaderContainer = styled.div`
+  @media ${theme.breakpoints.mobile} {
+    text-align: center;
+  }
+`;
+
 export type Props = {};
 
 const Component = ({}: Props) => {
@@ -107,12 +118,15 @@ const Component = ({}: Props) => {
             <StyledLink to="/">Login</StyledLink>
           </LoginLinkContainer>
         </NavigationBar>
-        <SubHeader title="Create Your Account">
-          <SubTitle>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod.
-          </SubTitle>
-        </SubHeader>
+        <HeaderContainer>
+          <SubHeader title="Create Your Account">
+            <SubTitle>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod.
+            </SubTitle>
+          </SubHeader>
+        </HeaderContainer>
+
         <SocialMedia />
         <HelperText>or create using our own form</HelperText>
         <RegistrationForm onChange={handleChangeValue} />
