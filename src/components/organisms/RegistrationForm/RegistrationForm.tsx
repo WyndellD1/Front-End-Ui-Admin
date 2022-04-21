@@ -40,9 +40,10 @@ const RadioGroupContainer = styled.div`
 
 export type Props = {
   onChange: (value: any) => void;
+  onRegister: () => void;
 };
 
-const Component = ({ onChange }: Props) => {
+const Component = ({ onRegister, onChange }: Props) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -130,7 +131,12 @@ const Component = ({ onChange }: Props) => {
         </HelperText>
       </Grid>
       <Grid item xs={12}>
-        <StyledButton fullWidth type="contained" label="Register" />
+        <StyledButton
+          onClick={onRegister}
+          fullWidth
+          type="contained"
+          label="Register"
+        />
       </Grid>
     </Grid>
   );

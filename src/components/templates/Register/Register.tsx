@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../../config';
 import { SubHeader } from '../../molecules/SubHeader';
-import { RegistrationForm } from '../../organisms/RegistrationForm';
+import {
+  PersonalInformation,
+  RegistrationForm,
+} from '../../organisms/RegistrationForm';
 import { SocialMedia } from '../../organisms/SocialMedia';
 
 const Container = styled.div`
@@ -33,6 +36,7 @@ const FormWrapper = styled.div`
   flex-direction: column;
   padding: 5em 10em;
   gap: 1em;
+  justify-content: center;
 
   @media ${theme.breakpoints.mobile} {
     padding: 1em;
@@ -96,40 +100,75 @@ const HeaderContainer = styled.div`
   }
 `;
 
+const FormContainer = styled.div`
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
+`;
+
 export type Props = {};
 
 const Component = ({}: Props) => {
+  const [steps, setSteps] = useState<number>(0);
+
   const [, setValue] = useState<Date | null>(new Date());
   const handleChangeValue = (value: any) => {
     setValue(value);
+  };
+
+  const handleClickNext = () => {
+    setSteps(steps + 1);
+  };
+  const handleClickPrevious = () => {
+    setSteps(steps - 1);
   };
 
   return (
     <Container>
       <DetailsWrapper>Test</DetailsWrapper>
       <FormWrapper>
-        <NavigationBar>
-          <HomepageLinkContainer>
-            <ArrowBackIos />
-            <StyledLink to="/home">Return to Homepage</StyledLink>
-          </HomepageLinkContainer>
-          <LoginLinkContainer>
-            <HelperText>Already have an account?</HelperText>
-            <StyledLink to="/">Login</StyledLink>
-          </LoginLinkContainer>
-        </NavigationBar>
-        <HeaderContainer>
-          <SubHeader title="Create Your Account">
-            <SubTitle>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod.
-            </SubTitle>
-          </SubHeader>
-        </HeaderContainer>
+        {steps === 0 && (
+          <FormContainer>
+            <NavigationBar>
+              <HomepageLinkContainer>
+                <ArrowBackIos />
+                <StyledLink to="/home">Return to Homepage</StyledLink>
+              </HomepageLinkContainer>
+              <LoginLinkContainer>
+                <HelperText>Already have an account?</HelperText>
+                <StyledLink to="/">Login</StyledLink>
+              </LoginLinkContainer>
+            </NavigationBar>
+            <HeaderContainer>
+              <SubHeader title="Create Your Account">
+                <SubTitle>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod.
+                </SubTitle>
+              </SubHeader>
+            </HeaderContainer>
 
-        <SocialMedia />
-        <HelperText>or create using our own form</HelperText>
-        <RegistrationForm onChange={handleChangeValue} />
+            <SocialMedia />
+            <HelperText>or create using our own form</HelperText>
+            <RegistrationForm
+              onRegister={handleClickNext}
+              onChange={handleChangeValue}
+            />
+          </FormContainer>
+        )}
+        {steps === 1 && (
+          <FormContainer>
+            <HeaderContainer>
+              <SubHeader title="Personal Information">
+                <SubTitle>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod.
+                </SubTitle>
+              </SubHeader>
+            </HeaderContainer>
+            <PersonalInformation clickPrevious={handleClickPrevious} />
+          </FormContainer>
+        )}
       </FormWrapper>
     </Container>
   );

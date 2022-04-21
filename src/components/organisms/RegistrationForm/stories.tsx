@@ -15,7 +15,9 @@ const Template: Story<Props> = () => {
     setValue(value);
   };
 
-  return <RegistrationForm onChange={handleChangeValue} />;
+  return (
+    <RegistrationForm onChange={handleChangeValue} onRegister={() => {}} />
+  );
 };
 
 export const RegisterForm = Template.bind({});
