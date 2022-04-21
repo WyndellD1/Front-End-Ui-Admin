@@ -1,10 +1,13 @@
 const colors = {
   lightGray: '#e8e8e8',
+  gray01: '#707070',
   white1: '#f3f1f1',
+  white: '#FFFFFF',
   secondary: '#6975a7',
   primary: '#823c53',
   primary02: '#883A4F',
   black01: '#444444',
+  shadow: '#0000000D',
 };
 
 // Sample usage: @media ${theme.breakpoints.mobileAndTablet} { ...styling }
