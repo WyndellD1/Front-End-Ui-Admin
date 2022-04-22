@@ -7,7 +7,9 @@ import { theme } from '../../../config';
 import { CircularStepper, Stepper } from '../../atoms/Stepper';
 import { SubHeader } from '../../molecules/SubHeader';
 import {
+  AdditionalInformation,
   EducationalBackground,
+  EmergencyContact,
   PersonalInformation,
   RegistrationForm,
 } from '../../organisms/RegistrationForm';
@@ -17,8 +19,8 @@ import { EducationStatusTypes } from '../../organisms/RegistrationForm/Education
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   height: 100%;
+  flex-direction: row;
 
   @media ${theme.breakpoints.mobile} {
     margin-top: 3em;
@@ -48,6 +50,7 @@ const FormWrapper = styled.div`
   padding: 5em 10em;
   gap: 1em;
   justify-content: center;
+  overflow: auto;
 
   @media ${theme.breakpoints.mobile} {
     padding: 1em;
@@ -139,6 +142,15 @@ const FormContainer = styled.div`
   gap: 1em;
   display: flex;
   flex-direction: column;
+  height: 100%;
+`;
+
+const FormCenteredContainer = styled.div`
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
 `;
 
 const InformationContainer = styled.div`
@@ -194,9 +206,11 @@ const StyledSubHeaderSubTitle = styled.div`
   font-size: 14px;
   font: normal normal normal 14px/18px Montserrat;
   color: ${theme.colors.black01};
+  display: none;
 
   @media ${theme.breakpoints.mobile} {
     font: normal normal normal 12px/15px Montserrat;
+    display: block;
   }
 `;
 
@@ -206,6 +220,11 @@ const InformationHeader = styled.div`
 
 const InformationSubHeader = styled.div`
   font: normal normal normal 14px/30px Montserrat;
+`;
+
+const CenteredContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export type Props = {};
@@ -233,10 +252,14 @@ const Component = ({}: Props) => {
   };
 
   const handleClickNext = () => {
-    setSteps(steps + 1);
+    if (steps < 4) {
+      setSteps(steps + 1);
+    }
   };
   const handleClickPrevious = () => {
-    setSteps(steps - 1);
+    if (steps > 0) {
+      setSteps(steps - 1);
+    }
   };
 
   const handleEducationStatusChange = (event: React.ChangeEvent) => {
@@ -278,7 +301,7 @@ const Component = ({}: Props) => {
       </DetailsWrapper>
       <FormWrapper>
         {steps === 0 && (
-          <FormContainer>
+          <FormCenteredContainer>
             <NavigationBar>
               <HomepageLinkContainer>
                 <ArrowBackIos />
@@ -304,7 +327,6 @@ const Component = ({}: Props) => {
               onRegister={handleClickNext}
               onChange={handleChangeBirthdate}
             />
-
             <MobileNavigation>
               <Divider />
               <LoginLinkContainer>
@@ -312,10 +334,10 @@ const Component = ({}: Props) => {
                 <StyledLink to="/">Login</StyledLink>
               </LoginLinkContainer>
             </MobileNavigation>
-          </FormContainer>
+          </FormCenteredContainer>
         )}
         {steps === 1 && (
-          <FormContainer>
+          <FormCenteredContainer>
             <HeaderContainer>
               <StyledSubHeader>
                 <StyledSubHeaderTitle>
@@ -341,10 +363,10 @@ const Component = ({}: Props) => {
               clickNext={handleClickNext}
               clickPrevious={handleClickPrevious}
             />
-          </FormContainer>
+          </FormCenteredContainer>
         )}
         {steps === 2 && (
-          <FormContainer>
+          <FormCenteredContainer>
             <HeaderContainer>
               <StyledSubHeader>
                 <StyledSubHeaderTitle>
@@ -373,7 +395,7 @@ const Component = ({}: Props) => {
               clickPrevious={handleClickPrevious}
               formValues={formValues}
             />
-          </FormContainer>
+          </FormCenteredContainer>
         )}
 
         {steps === 3 && (
@@ -399,8 +421,42 @@ const Component = ({}: Props) => {
                 />
               </MobileStepper>
             </HeaderContainer>
-            TODO
+            <AdditionalInformation
+              onChangeDateAttended={handleChangeYearAttended}
+              onChangeEducationStatus={handleEducationStatusChange}
+              clickNext={handleClickNext}
+              clickPrevious={handleClickPrevious}
+              formValues={formValues}
+            />
           </FormContainer>
+        )}
+
+        {steps === 4 && (
+          <FormCenteredContainer>
+            <HeaderContainer>
+              <StyledSubHeader>
+                <StyledSubHeaderTitle>Emergency Contact</StyledSubHeaderTitle>
+                <SubTitle>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod.
+                </SubTitle>
+                <StyledSubHeaderSubTitle>
+                  Next: Emergency Contact
+                </StyledSubHeaderSubTitle>
+              </StyledSubHeader>
+              <MobileStepper>
+                <CircularStepper
+                  size={80}
+                  value={steps}
+                  totalItems={initialSteps.length}
+                />
+              </MobileStepper>
+            </HeaderContainer>
+            <EmergencyContact
+              clickNext={handleClickNext}
+              clickPrevious={handleClickPrevious}
+            />
+          </FormCenteredContainer>
         )}
       </FormWrapper>
     </Container>

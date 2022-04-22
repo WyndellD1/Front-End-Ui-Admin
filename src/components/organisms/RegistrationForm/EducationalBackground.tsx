@@ -39,18 +39,20 @@ const ButtonContainer = styled.div`
 
   button {
     flex: 1;
-    border: 1px solid ${theme.colors.gray02};
-    color: ${theme.colors.gray02};
 
-    :hover {
-      border: 1px solid ${theme.colors.gray02};
+    :nth-child(1) {
+      border: 1px solid ${theme.colors.secondary};
+      color: ${theme.colors.secondary};
     }
 
     :nth-child(2) {
       background-color: ${theme.colors.secondary};
       border: 0;
+      color: ${theme.colors.white};
+    }
 
-      :hover {
+    :hover {
+      :nth-child(2) {
         background-color: ${theme.colors.primary02};
       }
     }

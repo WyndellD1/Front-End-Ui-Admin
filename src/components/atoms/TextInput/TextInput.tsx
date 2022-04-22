@@ -32,6 +32,7 @@ export type Props = {
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
   inputProps?: Object;
   fullWidth?: boolean;
+  placeholder?: string;
 };
 
 const Component = ({
@@ -45,6 +46,7 @@ const Component = ({
   color,
   inputProps,
   fullWidth,
+  placeholder,
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [newType, setNewType] = useState<string>('password');
@@ -60,6 +62,7 @@ const Component = ({
       disabled={disabled}
       variant={variant}
       id={id}
+      placeholder={placeholder}
       error={error}
       type={type === 'password' ? newType : type}
       color={color}

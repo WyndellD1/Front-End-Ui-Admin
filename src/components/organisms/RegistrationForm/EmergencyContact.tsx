@@ -3,17 +3,8 @@ import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import { TextInput } from '../../atoms/TextInput';
 import { Select } from '../../atoms/Select';
-import { RadioGroup } from '../../atoms/RadioGroup';
 import { Button } from '../../atoms/Button';
 import { theme } from '../../../config';
-
-const RadioGroupContainer = styled.div`
-  display: flex;
-
-  @media ${theme.breakpoints.mobile} {
-    justify-content: center;
-  }
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -56,35 +47,22 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Select
+        <TextInput
           size="small"
-          id="sitio"
+          id="members"
           fullWidth
+          type="text"
           variant="outlined"
-          label="Sitio"
-          items={[{ value: 10, label: '10' }]}
+          label="Name"
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12}>
         <Select
           size="small"
           id="religion"
           fullWidth
           variant="outlined"
-          label="Religion"
-          items={[
-            { value: '', label: '' },
-            { value: 10, label: '10' },
-          ]}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Select
-          size="small"
-          id="civil-status"
-          fullWidth
-          variant="outlined"
-          label="Civil Status"
+          label="Relationship"
           items={[
             { value: '', label: '' },
             { value: 10, label: '10' },
@@ -92,40 +70,26 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <RadioGroupContainer>
-          <RadioGroup
-            isRow
-            radioButtonSize="small"
-            fontColor={theme.colors.black01}
-            label="Are you a solo parent?"
-            items={[
-              { label: 'Yes', value: 'yes' },
-              { label: 'No', value: 'no' },
-            ]}
-            id="solo-parent"
-          />
-        </RadioGroupContainer>
-      </Grid>
-      <Grid item xs={12} md={6}>
         <TextInput
           size="small"
           id="members"
           fullWidth
           type="text"
           variant="outlined"
-          label="No. of members in family"
+          label="Contact Number"
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12}>
         <TextInput
           size="small"
-          id="siblings"
+          id="members"
           fullWidth
           type="text"
           variant="outlined"
-          label="How many siblings?"
+          label="Address"
         />
       </Grid>
+
       <Grid item xs={12}>
         <ButtonContainer>
           <Button
@@ -134,7 +98,12 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
             label="PREVIOUS"
             fullWidth
           />
-          <Button type="contained" onClick={clickNext} label="NEXT" fullWidth />
+          <Button
+            type="contained"
+            onClick={clickNext}
+            label="Finish"
+            fullWidth
+          />
         </ButtonContainer>
       </Grid>
     </Grid>
