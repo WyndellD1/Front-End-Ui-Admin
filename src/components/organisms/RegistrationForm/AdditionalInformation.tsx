@@ -9,13 +9,9 @@ import { DatePicker } from '../../molecules/DatePicker';
 import { Checkbox } from '../../atoms/Checkbox';
 import { TextInput } from '../../atoms/TextInput';
 
-const RadioGroupEducationContainer = styled.div`
+const RadioGroupContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media ${theme.breakpoints.mobile} {
-    display: none;
-  }
 `;
 
 const CheckboxContainer = styled.div`
@@ -25,6 +21,7 @@ const CheckboxContainer = styled.div`
 
   @media ${theme.breakpoints.mobile} {
     justify-content: center;
+    height: auto;
   }
 `;
 
@@ -75,6 +72,10 @@ const CheckboxWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   height: inherit;
+
+  @media ${theme.breakpoints.mobile} {
+    flex-wrap: nowrap;
+  }
 `;
 
 export type EducationStatusTypes = 'student' | 'graduate' | 'youth' | string;
@@ -97,7 +98,7 @@ const Component = ({
   return (
     <Grid container spacing={2} sx={{ paddingBottom: '5em' }}>
       <Grid item xs={12}>
-        <RadioGroupEducationContainer>
+        <RadioGroupContainer>
           <Label>Employment</Label>
           <RadioGroup
             fontColor={theme.colors.black01}
@@ -110,7 +111,7 @@ const Component = ({
             ]}
             id="employee-status"
           />
-        </RadioGroupEducationContainer>
+        </RadioGroupContainer>
       </Grid>
       <Grid item xs={12}>
         <Select
@@ -124,7 +125,7 @@ const Component = ({
       </Grid>
 
       <Grid item xs={12}>
-        <RadioGroupEducationContainer>
+        <RadioGroupContainer>
           <RadioGroup
             fontColor={theme.colors.black01}
             isRow
@@ -136,7 +137,7 @@ const Component = ({
             ]}
             id="nature"
           />
-        </RadioGroupEducationContainer>
+        </RadioGroupContainer>
       </Grid>
 
       <Divider sx={{ marginTop: '2em', width: '100%' }} />
@@ -200,7 +201,7 @@ const Component = ({
       </Grid>
 
       <Grid item xs={12}>
-        <RadioGroupEducationContainer>
+        <RadioGroupContainer>
           <RadioGroup
             fontColor={theme.colors.black01}
             isRow
@@ -212,7 +213,7 @@ const Component = ({
             ]}
             id="pwd"
           />
-        </RadioGroupEducationContainer>
+        </RadioGroupContainer>
       </Grid>
 
       <Grid item xs={12}>
@@ -283,7 +284,7 @@ const Component = ({
       <Divider sx={{ marginTop: '2em', width: '100%' }} />
 
       <Grid item xs={12}>
-        <RadioGroupEducationContainer>
+        <RadioGroupContainer>
           <Label>Other Information</Label>
           <RadioGroup
             fontColor={theme.colors.black01}
@@ -296,11 +297,11 @@ const Component = ({
             ]}
             id="employee-status"
           />
-        </RadioGroupEducationContainer>
+        </RadioGroupContainer>
       </Grid>
 
       <Grid item xs={12}>
-        <RadioGroupEducationContainer>
+        <RadioGroupContainer>
           <RadioGroup
             fontColor={theme.colors.black01}
             isRow
@@ -312,7 +313,7 @@ const Component = ({
             ]}
             id="employee-status"
           />
-        </RadioGroupEducationContainer>
+        </RadioGroupContainer>
       </Grid>
 
       <Grid item xs={12}>
@@ -385,7 +386,7 @@ const Component = ({
       </Grid>
 
       <Grid item xs={12}>
-        <RadioGroupEducationContainer>
+        <RadioGroupContainer>
           <RadioGroup
             fontColor={theme.colors.black01}
             isRow
@@ -397,7 +398,7 @@ const Component = ({
             ]}
             id="employee-status"
           />
-        </RadioGroupEducationContainer>
+        </RadioGroupContainer>
       </Grid>
 
       <Grid item xs={12}>

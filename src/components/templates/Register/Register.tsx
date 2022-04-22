@@ -151,6 +151,10 @@ const FormCenteredContainer = styled.div`
   flex-direction: column;
   height: 100%;
   justify-content: center;
+
+  @media ${theme.breakpoints.mobile} {
+    justify-content: flex-start;
+  }
 `;
 
 const InformationContainer = styled.div`
