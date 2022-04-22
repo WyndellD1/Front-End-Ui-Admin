@@ -66,7 +66,10 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
           fullWidth
           variant="outlined"
           label="Religion"
-          items={[{ value: 10, label: '10' }]}
+          items={[
+            { value: '', label: '' },
+            { value: 10, label: '10' },
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -76,7 +79,10 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
           fullWidth
           variant="outlined"
           label="Civil Status"
-          items={[{ value: 10, label: '10' }]}
+          items={[
+            { value: '', label: '' },
+            { value: 10, label: '10' },
+          ]}
         />
       </Grid>
       <Grid item xs={12}>
@@ -84,6 +90,7 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
           <RadioGroup
             isRow
             radioButtonSize="small"
+            fontColor={theme.colors.black01}
             label="Are you a solo parent?"
             items={[
               { label: 'Yes', value: 'yes' },

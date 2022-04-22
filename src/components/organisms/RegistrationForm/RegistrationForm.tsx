@@ -83,6 +83,7 @@ const Component = ({ onRegister, onChange }: Props) => {
         <RadioGroupContainer>
           <RadioGroup
             isRow
+            fontColor={theme.colors.black01}
             radioButtonSize="small"
             label="Gender"
             items={[

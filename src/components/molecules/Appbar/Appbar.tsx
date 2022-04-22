@@ -10,6 +10,7 @@ import {
   ListItemText,
   Toolbar,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Email, Menu as MenuIcon, Phone } from '@mui/icons-material';
 import React from 'react';
 import styled from 'styled-components';
@@ -57,7 +58,7 @@ const MenuText = styled.span`
 
 export type Props = {
   children?: React.ReactElement | React.ReactElement[];
-  isVisible: boolean;
+  isVisible?: boolean;
 };
 
 const Component = ({ children, isVisible = true }: Props) => {
@@ -82,6 +83,8 @@ const Component = ({ children, isVisible = true }: Props) => {
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+
+  const navigate = useNavigate();
 
   return isVisible ? (
     <NavbarContainer>
@@ -150,7 +153,12 @@ const Component = ({ children, isVisible = true }: Props) => {
               <NavItem>HOME</NavItem>
               <NavItem>YOUTH COUNCIL</NavItem>
               <NavItem>
-                <StyledButton label="LOGIN/REGISTER" />
+                <StyledButton
+                  onClick={() => {
+                    navigate('/register');
+                  }}
+                  label="LOGIN/REGISTER"
+                />
               </NavItem>
             </Box>
 

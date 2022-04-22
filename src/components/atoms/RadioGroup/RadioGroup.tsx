@@ -9,10 +9,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { theme } from '../../../config';
 
-const StyledLabel = styled(FormLabel)`
+const StyledLabel = styled(FormLabel)<{ $fontColor?: string }>`
   &&& {
     font-size: 12px;
-    color: ${theme.colors.secondary};
+    color: ${({ $fontColor }) => $fontColor || theme.colors.secondary};
   }
 `;
 
@@ -28,6 +28,9 @@ export type Props = {
   items: RadioButtonTypes[];
   radioButtonSize: 'small' | 'medium';
   fontSize?: string;
+  fontColor?: string;
+  value?: any;
+  onChange?: (event: React.ChangeEvent) => void;
 };
 
 const Component = ({
@@ -37,14 +40,20 @@ const Component = ({
   items,
   radioButtonSize,
   fontSize,
+  fontColor,
+  onChange,
+  value,
 }: Props) => {
   return (
     <FormControl>
-      <StyledLabel id={id}>{label}</StyledLabel>
-      <RadioGroup row={isRow}>
-        {items.map((item: RadioButtonTypes) => {
+      <StyledLabel $fontColor={fontColor} id={id}>
+        {label}
+      </StyledLabel>
+      <RadioGroup row={isRow} onChange={onChange} value={value}>
+        {items.map((item: RadioButtonTypes, index) => {
           return (
             <FormControlLabel
+              key={index}
               control={
                 <Radio
                   size={radioButtonSize}
