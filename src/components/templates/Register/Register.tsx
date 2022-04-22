@@ -205,7 +205,7 @@ const Component = ({}: Props) => {
           ) : (
             <Stepper
               label="Account Registration"
-              activeStep={steps}
+              activeStep={steps - 1}
               steps={initialSteps}
               orientation="vertical"
             />
@@ -275,6 +275,20 @@ const Component = ({}: Props) => {
               clickPrevious={handleClickPrevious}
               formValues={formValues}
             />
+          </FormContainer>
+        )}
+
+        {steps === 3 && (
+          <FormContainer>
+            <HeaderContainer>
+              <SubHeader title="Additional Information">
+                <SubTitle>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod.
+                </SubTitle>
+              </SubHeader>
+            </HeaderContainer>
+            TODO
           </FormContainer>
         )}
       </FormWrapper>
