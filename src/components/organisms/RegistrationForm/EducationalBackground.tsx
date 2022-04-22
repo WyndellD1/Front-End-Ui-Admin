@@ -16,14 +16,14 @@ const RadioGroupEducationContainer = styled.div`
 `;
 
 const RadioGroupContainer = styled.div`
-  display: flex;
+  display: none;
 
   @media ${theme.breakpoints.mobile} {
     justify-content: center;
   }
 `;
 
-const StyledSelect = styled(Select)`
+const EducationSelectContainer = styled.div`
   display: none;
 
   @media ${theme.breakpoints.mobile} {
@@ -97,20 +97,22 @@ const Component = ({
             id="education-status"
           />
         </RadioGroupEducationContainer>
-        <StyledSelect
-          size="small"
-          id="education-status"
-          fullWidth
-          variant="outlined"
-          onChange={onChangeEducationStatus}
-          value={formValues.educationStatus}
-          label="Current Education Status"
-          items={[
-            { label: 'Student', value: 'student' },
-            { label: 'Graduate', value: 'graduate' },
-            { label: 'Out of School Youth', value: 'youth' },
-          ]}
-        />
+        <EducationSelectContainer>
+          <Select
+            size="small"
+            id="education-status"
+            fullWidth
+            variant="outlined"
+            onChange={onChangeEducationStatus}
+            value={formValues.educationStatus}
+            label="Current Education Status"
+            items={[
+              { label: 'Student', value: 'student' },
+              { label: 'Graduate', value: 'graduate' },
+              { label: 'Out of School Youth', value: 'youth' },
+            ]}
+          />
+        </EducationSelectContainer>
       </Grid>
       {formValues && formValues.educationStatus === 'youth' && (
         <Grid item xs={12}>
