@@ -1,9 +1,10 @@
 import { ArrowBackIos } from '@mui/icons-material';
+import { Divider } from '@mui/material';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../../config';
-import { Stepper } from '../../atoms/Stepper';
+import { CircularStepper, Stepper } from '../../atoms/Stepper';
 import { SubHeader } from '../../molecules/SubHeader';
 import {
   EducationalBackground,
@@ -50,6 +51,7 @@ const FormWrapper = styled.div`
 
   @media ${theme.breakpoints.mobile} {
     padding: 1em;
+    justify-content: flex-start;
   }
 `;
 
@@ -80,6 +82,15 @@ const NavigationBar = styled.div`
   }
 `;
 
+const MobileNavigation = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media ${theme.breakpoints.mobile} {
+    display: flex;
+  }
+`;
+
 const HomepageLinkContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -97,6 +108,13 @@ const LoginLinkContainer = styled.div`
   flex: 1;
   justify-content: flex-end;
   gap: 0.5em;
+
+  @media ${theme.breakpoints.mobile} {
+    margin-top: 1em;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2em;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -104,9 +122,16 @@ const StyledLink = styled(Link)`
   color: ${theme.colors.secondary};
 `;
 
-const HeaderContainer = styled.div`
+const MainRegistrationHeaderContainer = styled.div`
   @media ${theme.breakpoints.mobile} {
     text-align: center;
+  }
+`;
+
+const HeaderContainer = styled.div`
+  @media ${theme.breakpoints.mobile} {
+    display: flex;
+    flex-direction: row;
   }
 `;
 
@@ -136,6 +161,43 @@ const LogoIcon = styled.img`
   height: 100px;
   width: 100px;
   margin-bottom: 2em;
+`;
+
+const StyledSubHeader = styled.div`
+  @media ${theme.breakpoints.mobile} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
+
+const MobileStepper = styled.div`
+  display: none;
+  @media ${theme.breakpoints.mobile} {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+  }
+`;
+
+const StyledSubHeaderTitle = styled.div`
+  font-size: 24px;
+  color: ${theme.colors.black01};
+  font: normal normal bold 24px/35px Poppins;
+
+  @media ${theme.breakpoints.mobile} {
+    font: normal normal bold 18px/27px Poppins;
+  }
+`;
+
+const StyledSubHeaderSubTitle = styled.div`
+  font-size: 14px;
+  font: normal normal normal 14px/18px Montserrat;
+  color: ${theme.colors.black01};
+
+  @media ${theme.breakpoints.mobile} {
+    font: normal normal normal 12px/15px Montserrat;
+  }
 `;
 
 const InformationHeader = styled.div`
@@ -187,6 +249,8 @@ const Component = ({}: Props) => {
     setFormValues({ ...formValues, yearAttended: value });
   };
 
+  const normalise = (value: any) => (value * 100) / (initialSteps.length - 1);
+
   return (
     <Container>
       <DetailsWrapper>
@@ -225,14 +289,14 @@ const Component = ({}: Props) => {
                 <StyledLink to="/">Login</StyledLink>
               </LoginLinkContainer>
             </NavigationBar>
-            <HeaderContainer>
+            <MainRegistrationHeaderContainer>
               <SubHeader title="Create Your Account">
                 <SubTitle>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod.
                 </SubTitle>
               </SubHeader>
-            </HeaderContainer>
+            </MainRegistrationHeaderContainer>
 
             <SocialMedia />
             <HelperText>or create using our own form</HelperText>
@@ -240,17 +304,38 @@ const Component = ({}: Props) => {
               onRegister={handleClickNext}
               onChange={handleChangeBirthdate}
             />
+
+            <MobileNavigation>
+              <Divider />
+              <LoginLinkContainer>
+                <HelperText>Already have an account?</HelperText>
+                <StyledLink to="/">Login</StyledLink>
+              </LoginLinkContainer>
+            </MobileNavigation>
           </FormContainer>
         )}
         {steps === 1 && (
           <FormContainer>
             <HeaderContainer>
-              <SubHeader title="Personal Information">
+              <StyledSubHeader>
+                <StyledSubHeaderTitle>
+                  Personal Information
+                </StyledSubHeaderTitle>
                 <SubTitle>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod.
                 </SubTitle>
-              </SubHeader>
+                <StyledSubHeaderSubTitle>
+                  Next: Educational Background
+                </StyledSubHeaderSubTitle>
+              </StyledSubHeader>
+              <MobileStepper>
+                <CircularStepper
+                  size={80}
+                  value={steps}
+                  totalItems={initialSteps.length}
+                />
+              </MobileStepper>
             </HeaderContainer>
             <PersonalInformation
               clickNext={handleClickNext}
@@ -261,12 +346,25 @@ const Component = ({}: Props) => {
         {steps === 2 && (
           <FormContainer>
             <HeaderContainer>
-              <SubHeader title="Educational Background">
+              <StyledSubHeader>
+                <StyledSubHeaderTitle>
+                  Educational Background
+                </StyledSubHeaderTitle>
                 <SubTitle>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod.
                 </SubTitle>
-              </SubHeader>
+                <StyledSubHeaderSubTitle>
+                  Next: Additional Information
+                </StyledSubHeaderSubTitle>
+              </StyledSubHeader>
+              <MobileStepper>
+                <CircularStepper
+                  size={80}
+                  value={steps}
+                  totalItems={initialSteps.length}
+                />
+              </MobileStepper>
             </HeaderContainer>
             <EducationalBackground
               onChangeDateAttended={handleChangeYearAttended}
@@ -281,12 +379,25 @@ const Component = ({}: Props) => {
         {steps === 3 && (
           <FormContainer>
             <HeaderContainer>
-              <SubHeader title="Additional Information">
+              <StyledSubHeader>
+                <StyledSubHeaderTitle>
+                  Additional Information
+                </StyledSubHeaderTitle>
                 <SubTitle>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod.
                 </SubTitle>
-              </SubHeader>
+                <StyledSubHeaderSubTitle>
+                  Next: Emergency Contact
+                </StyledSubHeaderSubTitle>
+              </StyledSubHeader>
+              <MobileStepper>
+                <CircularStepper
+                  size={80}
+                  value={steps}
+                  totalItems={initialSteps.length}
+                />
+              </MobileStepper>
             </HeaderContainer>
             TODO
           </FormContainer>
