@@ -9,6 +9,10 @@ import { theme } from '../../../config';
 
 const RadioGroupContainer = styled.div`
   display: flex;
+
+  @media ${theme.breakpoints.mobile} {
+    justify-content: center;
+  }
 `;
 
 const ButtonContainer = styled.div`

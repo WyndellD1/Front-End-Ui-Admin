@@ -9,6 +9,7 @@ const colors = {
   primary02: '#883A4F',
   black01: '#444444',
   shadow: '#0000000D',
+  gray03: '#eeeeee',
 };
 
 // Sample usage: @media ${theme.breakpoints.mobileAndTablet} { ...styling }

@@ -7,8 +7,28 @@ import { Button } from '../../atoms/Button';
 import { theme } from '../../../config';
 import { DatePicker } from '../../molecules/DatePicker';
 
+const RadioGroupEducationContainer = styled.div`
+  display: flex;
+
+  @media ${theme.breakpoints.mobile} {
+    display: none;
+  }
+`;
+
 const RadioGroupContainer = styled.div`
   display: flex;
+
+  @media ${theme.breakpoints.mobile} {
+    justify-content: center;
+  }
+`;
+
+const StyledSelect = styled(Select)`
+  display: none;
+
+  @media ${theme.breakpoints.mobile} {
+    display: flex;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -61,7 +81,7 @@ const Component = ({
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <RadioGroupContainer>
+        <RadioGroupEducationContainer>
           <RadioGroup
             fontColor={theme.colors.black01}
             isRow
@@ -76,7 +96,21 @@ const Component = ({
             ]}
             id="education-status"
           />
-        </RadioGroupContainer>
+        </RadioGroupEducationContainer>
+        <StyledSelect
+          size="small"
+          id="education-status"
+          fullWidth
+          variant="outlined"
+          onChange={onChangeEducationStatus}
+          value={formValues.educationStatus}
+          label="Current Education Status"
+          items={[
+            { label: 'Student', value: 'student' },
+            { label: 'Graduate', value: 'graduate' },
+            { label: 'Out of School Youth', value: 'youth' },
+          ]}
+        />
       </Grid>
       {formValues && formValues.educationStatus === 'youth' && (
         <Grid item xs={12}>
