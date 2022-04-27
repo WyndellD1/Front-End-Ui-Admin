@@ -47,7 +47,7 @@ const ButtonContainer = styled.div`
   }
 `;
 
-type Props = {
+export type Props = {
   clickNext?: () => void;
   clickPrevious?: () => void;
 };

@@ -59,9 +59,10 @@ const MenuText = styled.span`
 export type Props = {
   children?: React.ReactElement | React.ReactElement[];
   isVisible?: boolean;
+  anchor?: 'top' | 'bottom' | 'left' | 'right';
 };
 
-const Component = ({ children, isVisible = true }: Props) => {
+const Component = ({ children, isVisible = true, anchor = 'top' }: Props) => {
   const information = [
     {
       label: 'sktisacouncil@gmail.com',
@@ -73,10 +74,10 @@ const Component = ({ children, isVisible = true }: Props) => {
     },
   ];
 
+  const mobileNavs = ['HOME', 'YOUTH COUNCIL', 'LOGIN/REGISTER'];
+
   const container =
     window !== undefined ? () => window.document.body : undefined;
-
-  const drawerWidth = 240;
 
   const [openDrawer, setOpenDrawer] = React.useState(false);
 
@@ -88,39 +89,13 @@ const Component = ({ children, isVisible = true }: Props) => {
 
   return isVisible ? (
     <NavbarContainer>
-      <Drawer
-        container={container}
-        variant="temporary"
-        open={openDrawer}
-        onClose={handleOpenDrawer}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        sx={{
-          display: { xs: 'block', lg: 'none' },
-          '& .MuiDrawer-paper': {
-            boxSizing: 'border-box',
-            width: drawerWidth,
-          },
-        }}
-      >
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={index}>
-              <ListItemIcon>
-                <MenuIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
       <AppBar
         sx={{
           background: theme.colors.white,
           boxShadow: `0px 5px 10px ${theme.colors.shadow}`,
+          zIndex: 1400,
         }}
-        position="static"
+        position="fixed"
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -186,6 +161,47 @@ const Component = ({ children, isVisible = true }: Props) => {
             </Box>
           </Toolbar>
         </Container>
+        <Drawer
+          anchor={anchor}
+          container={container}
+          variant="temporary"
+          open={openDrawer}
+          onClose={handleOpenDrawer}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', lg: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              top: '55px',
+              height: '100%',
+              background:
+                'transparent linear-gradient(180deg, #FFFFFF 0%, #F5F5FDF8 33%, #717CAC8C 79%, #6975A798 100%) 0% 0% no-repeat padding-box',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+            },
+          }}
+        >
+          <List>
+            {mobileNavs.map((text, index) => (
+              <ListItem button key={index}>
+                <ListItemText
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    font: 'normal normal normal 14px/18px Montserrat;',
+                    color:
+                      index === mobileNavs.length - 1
+                        ? theme.colors.primary02
+                        : theme.colors.black01,
+                  }}
+                  primary={text}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
       </AppBar>
       {children}
     </NavbarContainer>
