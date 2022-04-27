@@ -47,7 +47,8 @@
     "no-nested-ternary": "off",
     "react/no-array-index-key": "off",
     "no-console": "off",
-    "no-unneeded-ternary": "off"
+    "no-unneeded-ternary": "off",
+    "import/no-cycle": "off"
   },
   "overrides": [
     {

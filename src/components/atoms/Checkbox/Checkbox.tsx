@@ -10,11 +10,6 @@ const StyledLabel = styled(FormControlLabel)<{ $fontColor?: string }>`
   }
 `;
 
-type RadioButtonTypes = {
-  label: string;
-  value: string;
-};
-
 export type Props = {
   label: string;
   id: string;

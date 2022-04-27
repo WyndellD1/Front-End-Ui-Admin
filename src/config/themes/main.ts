@@ -8,8 +8,11 @@ const colors = {
   primary: '#823c53',
   primary02: '#883A4F',
   black01: '#444444',
+  black02: '#414141',
+  black03: '#292929',
   shadow: '#0000000D',
   gray03: '#eeeeee',
+  blue01: '#1778F2',
 };
 
 // Sample usage: @media ${theme.breakpoints.mobileAndTablet} { ...styling }

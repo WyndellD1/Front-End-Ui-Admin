@@ -20,7 +20,7 @@ const StyledFormControl = styled(FormControl)`
   }
 `;
 
-type SelectItem = {
+export type SelectItem = {
   id?: number;
   value: any;
   label: string;
