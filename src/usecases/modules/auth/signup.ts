@@ -1,8 +1,8 @@
+import { SignUpParams } from '../../../domain/entities/user';
 import AuthService from '../../ports/AuthService';
 
 export type signUpUseCase = (
-  name: string,
-  email: string,
+  data: SignUpParams,
   password: string,
 ) => Promise<object | null>;
 
@@ -11,8 +11,8 @@ export const buildSignUp = (dependencies: {
 }): signUpUseCase => {
   const { authService } = dependencies;
 
-  const signUp: signUpUseCase = (name, email, password) =>
-    authService.signUp(name, email, password);
+  const signUp: signUpUseCase = (data, password) =>
+    authService.signUp(data, password);
 
   return signUp;
 };

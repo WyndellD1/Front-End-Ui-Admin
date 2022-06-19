@@ -1,8 +1,10 @@
 import { ArrowBackIos } from '@mui/icons-material';
 import { Divider } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Formik } from 'formik';
+import { useMutation } from 'react-query';
 import { theme } from '../../../config';
 import { CircularStepper, Stepper } from '../../atoms/Stepper';
 import { SubHeader } from '../../molecules/SubHeader';
@@ -16,6 +18,8 @@ import {
 import Logo from '../../../assets/images/Logo.png';
 import { SocialMedia } from '../../organisms/SocialMedia';
 import { EducationStatusTypes } from '../../organisms/RegistrationForm/EducationalBackground';
+import { useAuthHooks } from '../../../hooks/auth';
+import { SignUpValues } from './types';
 
 const Container = styled.div`
   display: flex;
@@ -240,6 +244,22 @@ const Component = ({}: Props) => {
     'Additional Information',
     'Emergency Contact',
   ];
+
+  const initialValue = {
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    birthdate: new Date(),
+    phoneNumber: '',
+    gender: '',
+    email: '',
+    role: '',
+    password: '',
+  };
+
+  const { useSignUp } = useAuthHooks();
+  const { signUpUser } = useSignUp();
+
   const [steps, setSteps] = useState<number>(0);
   const [formValues, setFormValues] = useState<{
     date: Date | null;
@@ -276,7 +296,25 @@ const Component = ({}: Props) => {
     setFormValues({ ...formValues, yearAttended: value });
   };
 
-  const normalise = (value: any) => (value * 100) / (initialSteps.length - 1);
+  const { mutate: signUpMutation, isLoading: isSigningUp } = useMutation(
+    (payload: { data: SignUpValues; password: string }) => {
+      const { data, password } = payload;
+      return signUpUser(data, password);
+    },
+    {
+      onSuccess: (data) => console.log(data),
+      onError: (error) => console.log(error),
+    },
+  );
+
+  const handleSubmitData = useCallback(
+    (values: SignUpValues & { password: string }): void => {
+      const { password, ...data } = values;
+
+      signUpMutation({ data, password });
+    },
+    [],
+  );
 
   return (
     <Container>
@@ -303,166 +341,192 @@ const Component = ({}: Props) => {
           )}
         </InformationContainer>
       </DetailsWrapper>
-      <FormWrapper>
-        {steps === 0 && (
-          <FormCenteredContainer>
-            <NavigationBar>
-              <HomepageLinkContainer>
-                <ArrowBackIos />
-                <StyledLink to="/home">Return to Homepage</StyledLink>
-              </HomepageLinkContainer>
-              <LoginLinkContainer>
-                <HelperText>Already have an account?</HelperText>
-                <StyledLink to="/">Login</StyledLink>
-              </LoginLinkContainer>
-            </NavigationBar>
-            <MainRegistrationHeaderContainer>
-              <SubHeader title="Create Your Account">
-                <SubTitle>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod.
-                </SubTitle>
-              </SubHeader>
-            </MainRegistrationHeaderContainer>
+      <Formik
+        enableReinitialize
+        initialValues={initialValue}
+        onSubmit={handleSubmitData}
+      >
+        {({
+          handleSubmit,
+          handleChange,
+          setFieldValue,
+          values,
+        }): React.ReactElement => {
+          return (
+            <FormWrapper>
+              {steps === 0 && (
+                <FormCenteredContainer>
+                  <NavigationBar>
+                    <HomepageLinkContainer>
+                      <ArrowBackIos />
+                      <StyledLink to="/home">Return to Homepage</StyledLink>
+                    </HomepageLinkContainer>
+                    <LoginLinkContainer>
+                      <HelperText>Already have an account?</HelperText>
+                      <StyledLink to="/">Login</StyledLink>
+                    </LoginLinkContainer>
+                  </NavigationBar>
+                  <MainRegistrationHeaderContainer>
+                    <SubHeader title="Create Your Account">
+                      <SubTitle>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod.
+                      </SubTitle>
+                    </SubHeader>
+                  </MainRegistrationHeaderContainer>
 
-            <SocialMedia />
-            <HelperText>or create using our own form</HelperText>
-            <RegistrationForm
-              onRegister={handleClickNext}
-              onChange={handleChangeBirthdate}
-            />
-            <MobileNavigation>
-              <Divider />
-              <LoginLinkContainer>
-                <HelperText>Already have an account?</HelperText>
-                <StyledLink to="/">Login</StyledLink>
-              </LoginLinkContainer>
-            </MobileNavigation>
-          </FormCenteredContainer>
-        )}
-        {steps === 1 && (
-          <FormCenteredContainer>
-            <HeaderContainer>
-              <StyledSubHeader>
-                <StyledSubHeaderTitle>
-                  Personal Information
-                </StyledSubHeaderTitle>
-                <SubTitle>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod.
-                </SubTitle>
-                <StyledSubHeaderSubTitle>
-                  Next: Educational Background
-                </StyledSubHeaderSubTitle>
-              </StyledSubHeader>
-              <MobileStepper>
-                <CircularStepper
-                  size={80}
-                  value={steps}
-                  totalItems={initialSteps.length}
-                />
-              </MobileStepper>
-            </HeaderContainer>
-            <PersonalInformation
-              clickNext={handleClickNext}
-              clickPrevious={handleClickPrevious}
-            />
-          </FormCenteredContainer>
-        )}
-        {steps === 2 && (
-          <FormCenteredContainer>
-            <HeaderContainer>
-              <StyledSubHeader>
-                <StyledSubHeaderTitle>
-                  Educational Background
-                </StyledSubHeaderTitle>
-                <SubTitle>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod.
-                </SubTitle>
-                <StyledSubHeaderSubTitle>
-                  Next: Additional Information
-                </StyledSubHeaderSubTitle>
-              </StyledSubHeader>
-              <MobileStepper>
-                <CircularStepper
-                  size={80}
-                  value={steps}
-                  totalItems={initialSteps.length}
-                />
-              </MobileStepper>
-            </HeaderContainer>
-            <EducationalBackground
-              onChangeDateAttended={handleChangeYearAttended}
-              onChangeEducationStatus={handleEducationStatusChange}
-              clickNext={handleClickNext}
-              clickPrevious={handleClickPrevious}
-              formValues={formValues}
-            />
-          </FormCenteredContainer>
-        )}
+                  <SocialMedia />
+                  <HelperText>or create using our own form</HelperText>
+                  <RegistrationForm
+                    onChangeGender={handleChange('gender')}
+                    onChangeFirstName={handleChange('firstName')}
+                    onChangeLastName={handleChange('lastName')}
+                    onChangeMiddleName={handleChange('middleName')}
+                    onChangePassword={handleChange('password')}
+                    onChangePhone={handleChange('phoneNumber')}
+                    onChangeEmail={handleChange('email')}
+                    onChangeBirthdate={setFieldValue}
+                    onRegister={handleSubmit}
+                    birthDate={values.birthdate}
+                    onChange={handleChangeBirthdate}
+                  />
+                  <MobileNavigation>
+                    <Divider />
+                    <LoginLinkContainer>
+                      <HelperText>Already have an account?</HelperText>
+                      <StyledLink to="/">Login</StyledLink>
+                    </LoginLinkContainer>
+                  </MobileNavigation>
+                </FormCenteredContainer>
+              )}
+              {steps === 1 && (
+                <FormCenteredContainer>
+                  <HeaderContainer>
+                    <StyledSubHeader>
+                      <StyledSubHeaderTitle>
+                        Personal Information
+                      </StyledSubHeaderTitle>
+                      <SubTitle>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod.
+                      </SubTitle>
+                      <StyledSubHeaderSubTitle>
+                        Next: Educational Background
+                      </StyledSubHeaderSubTitle>
+                    </StyledSubHeader>
+                    <MobileStepper>
+                      <CircularStepper
+                        size={80}
+                        value={steps}
+                        totalItems={initialSteps.length}
+                      />
+                    </MobileStepper>
+                  </HeaderContainer>
+                  <PersonalInformation
+                    clickNext={handleClickNext}
+                    clickPrevious={handleClickPrevious}
+                  />
+                </FormCenteredContainer>
+              )}
+              {steps === 2 && (
+                <FormCenteredContainer>
+                  <HeaderContainer>
+                    <StyledSubHeader>
+                      <StyledSubHeaderTitle>
+                        Educational Background
+                      </StyledSubHeaderTitle>
+                      <SubTitle>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod.
+                      </SubTitle>
+                      <StyledSubHeaderSubTitle>
+                        Next: Additional Information
+                      </StyledSubHeaderSubTitle>
+                    </StyledSubHeader>
+                    <MobileStepper>
+                      <CircularStepper
+                        size={80}
+                        value={steps}
+                        totalItems={initialSteps.length}
+                      />
+                    </MobileStepper>
+                  </HeaderContainer>
+                  <EducationalBackground
+                    onChangeDateAttended={handleChangeYearAttended}
+                    onChangeEducationStatus={handleEducationStatusChange}
+                    clickNext={handleClickNext}
+                    clickPrevious={handleClickPrevious}
+                    formValues={formValues}
+                  />
+                </FormCenteredContainer>
+              )}
 
-        {steps === 3 && (
-          <FormContainer>
-            <HeaderContainer>
-              <StyledSubHeader>
-                <StyledSubHeaderTitle>
-                  Additional Information
-                </StyledSubHeaderTitle>
-                <SubTitle>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod.
-                </SubTitle>
-                <StyledSubHeaderSubTitle>
-                  Next: Emergency Contact
-                </StyledSubHeaderSubTitle>
-              </StyledSubHeader>
-              <MobileStepper>
-                <CircularStepper
-                  size={80}
-                  value={steps}
-                  totalItems={initialSteps.length}
-                />
-              </MobileStepper>
-            </HeaderContainer>
-            <AdditionalInformation
-              onChangeDateAttended={handleChangeYearAttended}
-              onChangeEducationStatus={handleEducationStatusChange}
-              clickNext={handleClickNext}
-              clickPrevious={handleClickPrevious}
-              formValues={formValues}
-            />
-          </FormContainer>
-        )}
+              {steps === 3 && (
+                <FormContainer>
+                  <HeaderContainer>
+                    <StyledSubHeader>
+                      <StyledSubHeaderTitle>
+                        Additional Information
+                      </StyledSubHeaderTitle>
+                      <SubTitle>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod.
+                      </SubTitle>
+                      <StyledSubHeaderSubTitle>
+                        Next: Emergency Contact
+                      </StyledSubHeaderSubTitle>
+                    </StyledSubHeader>
+                    <MobileStepper>
+                      <CircularStepper
+                        size={80}
+                        value={steps}
+                        totalItems={initialSteps.length}
+                      />
+                    </MobileStepper>
+                  </HeaderContainer>
+                  <AdditionalInformation
+                    onChangeDateAttended={handleChangeYearAttended}
+                    onChangeEducationStatus={handleEducationStatusChange}
+                    clickNext={handleClickNext}
+                    clickPrevious={handleClickPrevious}
+                    formValues={formValues}
+                  />
+                </FormContainer>
+              )}
 
-        {steps === 4 && (
-          <FormCenteredContainer>
-            <HeaderContainer>
-              <StyledSubHeader>
-                <StyledSubHeaderTitle>Emergency Contact</StyledSubHeaderTitle>
-                <SubTitle>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod.
-                </SubTitle>
-                <StyledSubHeaderSubTitle>
-                  Next: Emergency Contact
-                </StyledSubHeaderSubTitle>
-              </StyledSubHeader>
-              <MobileStepper>
-                <CircularStepper
-                  size={80}
-                  value={steps}
-                  totalItems={initialSteps.length}
-                />
-              </MobileStepper>
-            </HeaderContainer>
-            <EmergencyContact
-              clickNext={handleClickNext}
-              clickPrevious={handleClickPrevious}
-            />
-          </FormCenteredContainer>
-        )}
-      </FormWrapper>
+              {steps === 4 && (
+                <FormCenteredContainer>
+                  <HeaderContainer>
+                    <StyledSubHeader>
+                      <StyledSubHeaderTitle>
+                        Emergency Contact
+                      </StyledSubHeaderTitle>
+                      <SubTitle>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod.
+                      </SubTitle>
+                      <StyledSubHeaderSubTitle>
+                        Next: Emergency Contact
+                      </StyledSubHeaderSubTitle>
+                    </StyledSubHeader>
+                    <MobileStepper>
+                      <CircularStepper
+                        size={80}
+                        value={steps}
+                        totalItems={initialSteps.length}
+                      />
+                    </MobileStepper>
+                  </HeaderContainer>
+                  <EmergencyContact
+                    clickNext={handleClickNext}
+                    clickPrevious={handleClickPrevious}
+                  />
+                </FormCenteredContainer>
+              )}
+            </FormWrapper>
+          );
+        }}
+      </Formik>
     </Container>
   );
 };

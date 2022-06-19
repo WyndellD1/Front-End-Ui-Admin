@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { AuthHooks } from '.';
 import { useDependencies } from '..';
 import storageKeys from '../../constants/localStorage/storageKeys';
+import { SignUpParams } from '../../domain/entities/user';
 import { useGlobalState } from '../global';
 
 export const useLogin: AuthHooks['useLogin'] = (): {
@@ -35,11 +36,7 @@ export const useLogin: AuthHooks['useLogin'] = (): {
 };
 
 export const useSignUp: AuthHooks['useSignUp'] = (): {
-  signUpUser: (
-    name: string,
-    email: string,
-    password: string,
-  ) => Promise<Object | null>;
+  signUpUser: (data: SignUpParams, password: string) => Promise<Object | null>;
 } => {
   const { authInteractor } = useDependencies();
   const { signUp } = authInteractor;
@@ -48,8 +45,8 @@ export const useSignUp: AuthHooks['useSignUp'] = (): {
   } = useGlobalState();
 
   const signUpUser = useCallback(
-    async (name: string, email: string, password: string) => {
-      const response = await signUp(name, email, password);
+    async (data: SignUpParams, password: string) => {
+      const response = await signUp(data, password);
       setCurrentUser({ ...response });
 
       return response;

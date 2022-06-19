@@ -4,6 +4,7 @@ import './index.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import reportWebVitals from './reportWebVitals';
 import RootNavigator from './navigators/root/RootNavigator';
+import Hooks from './hooks';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -25,7 +26,9 @@ root.render(
         })
       }
     >
-      <RootNavigator />
+      <Hooks>
+        <RootNavigator />
+      </Hooks>
     </QueryClientProvider>
   </StrictMode>,
 );

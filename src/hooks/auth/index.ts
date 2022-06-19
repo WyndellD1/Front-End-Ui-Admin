@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import { SignUpParams } from '../../domain/entities/user';
 
 export type AuthHooks = {
   useLogin: () => {
@@ -10,8 +11,7 @@ export type AuthHooks = {
   };
   useSignUp: () => {
     signUpUser: (
-      name: string,
-      email: string,
+      data: SignUpParams,
       password: string,
     ) => Promise<Object | null>;
   };

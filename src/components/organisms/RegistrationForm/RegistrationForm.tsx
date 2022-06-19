@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Grid } from '@mui/material';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { DatePicker } from '../../molecules/DatePicker';
 import { Button } from '../../atoms/Button';
 import { theme } from '../../../config';
 import { RadioGroup } from '../../atoms/RadioGroup';
+import { SignUpValues } from '../../templates/Register/types';
 
 const HelperText = styled.div`
   font: normal normal normal 12px/15px Montserrat;
@@ -41,13 +42,39 @@ const RadioGroupContainer = styled.div`
 export type Props = {
   onChange: (value: any) => void;
   onRegister: () => void;
+  onChangeFirstName: (text: string) => void;
+  onChangeEmail: (text: string) => void;
+  onChangePhone: (text: string) => void;
+  onChangePassword: (text: string) => void;
+  onChangeMiddleName: (text: string) => void;
+  onChangeLastName: (text: string) => void;
+  onChangeGender: (text: string) => void;
+  onChangeBirthdate: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean,
+  ) => void;
+  birthDate: any;
 };
 
-const Component = ({ onRegister, onChange }: Props) => {
+const Component = ({
+  onRegister,
+  onChange,
+  onChangeFirstName,
+  onChangeGender,
+  onChangeLastName,
+  onChangeMiddleName,
+  onChangeEmail,
+  onChangePassword,
+  onChangePhone,
+  onChangeBirthdate,
+  birthDate,
+}: Props) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextInput
+          onChangeText={onChangeFirstName}
           size="small"
           id="firstname"
           fullWidth
@@ -58,6 +85,7 @@ const Component = ({ onRegister, onChange }: Props) => {
       </Grid>
       <Grid item xs={12} md={6}>
         <TextInput
+          onChangeText={onChangeMiddleName}
           size="small"
           id="middlename"
           fullWidth
@@ -68,6 +96,7 @@ const Component = ({ onRegister, onChange }: Props) => {
       </Grid>
       <Grid item xs={12} md={6}>
         <TextInput
+          onChangeText={onChangeLastName}
           size="small"
           id="lastname"
           type="text"
@@ -77,11 +106,19 @@ const Component = ({ onRegister, onChange }: Props) => {
         />
       </Grid>
       <Grid item xs={12} md={6}>
-        <DatePicker onChange={onChange} size="small" label="Birthdate" />
+        <DatePicker
+          onChange={(val) => onChangeBirthdate('birthdate', val)}
+          size="small"
+          initialValue={birthDate}
+          label="Birthdate"
+        />
       </Grid>
       <Grid item xs={12} md={6}>
         <RadioGroupContainer>
           <RadioGroup
+            onChange={(event: ChangeEvent, value: string) =>
+              onChangeGender(value)
+            }
             isRow
             fontColor={theme.colors.black01}
             radioButtonSize="small"
@@ -96,6 +133,7 @@ const Component = ({ onRegister, onChange }: Props) => {
       </Grid>
       <Grid item xs={12}>
         <TextInput
+          onChangeText={onChangePhone}
           size="small"
           id="phone"
           fullWidth
@@ -106,6 +144,7 @@ const Component = ({ onRegister, onChange }: Props) => {
       </Grid>
       <Grid item xs={12}>
         <TextInput
+          onChangeText={onChangeEmail}
           size="small"
           id="email"
           fullWidth
@@ -116,6 +155,7 @@ const Component = ({ onRegister, onChange }: Props) => {
       </Grid>
       <Grid item xs={12}>
         <TextInput
+          onChangeText={onChangePassword}
           size="small"
           id="password"
           fullWidth

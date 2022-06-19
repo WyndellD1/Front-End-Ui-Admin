@@ -1,9 +1,10 @@
+import { format } from 'date-fns';
 import { URLsType } from '../../constants/urls';
 import {
   GenericError,
   LoginValidationError,
 } from '../../domain/entities/errors';
-import { User } from '../../domain/entities/user';
+import { User, SignUpParams } from '../../domain/entities/user';
 import AuthService from '../../usecases/ports/AuthService';
 import { HttpAdapter } from '../../usecases/ports/HttpAdapter';
 
@@ -26,11 +27,21 @@ export default class AuthServiceRestImpl implements AuthService {
   }
 
   signUp = async (
-    name: string,
-    email: string,
+    data: SignUpParams,
     password: string,
   ): Promise<object | null> => {
-    const params = { email, password, fullname: name, remember: 0 };
+    const params = {
+      userBday: format(data.birthdate, 'yyyy-MM-dd HH:mm:ss'),
+      userEmailAdd: data.email,
+      userMiddleName: data.middleName,
+      userFirstName: data.firstName,
+      userGender: data.gender,
+      userLastName: data.lastName,
+      userPass: password,
+      userPhoneNum: data.phoneNumber,
+      userPass_confirmation: password,
+      remember: 0,
+    };
 
     const response = await this.httpAdapter.post(this.urls.signup, params);
 
