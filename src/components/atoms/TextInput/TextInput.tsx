@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { InputAdornment, IconButton, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styled from 'styled-components';
@@ -33,6 +33,8 @@ export type Props = {
   inputProps?: Object;
   fullWidth?: boolean;
   placeholder?: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
 };
 
 const Component = ({
@@ -47,6 +49,8 @@ const Component = ({
   inputProps,
   fullWidth,
   placeholder,
+  onChangeText,
+  value,
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [newType, setNewType] = useState<string>('password');
@@ -56,12 +60,18 @@ const Component = ({
     setNewType(!showPassword ? 'text' : 'password');
   };
 
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (onChangeText) onChangeText(event.target.value);
+  };
+
   return (
     <StyledTextInput
+      onChange={onChange}
       label={label}
       disabled={disabled}
       variant={variant}
       id={id}
+      value={value}
       placeholder={placeholder}
       error={error}
       type={type === 'password' ? newType : type}

@@ -30,7 +30,7 @@ export type Props = {
   fontSize?: string;
   fontColor?: string;
   value?: any;
-  onChange?: (event: React.ChangeEvent) => void;
+  onChange?: (event: React.ChangeEvent, value: string) => void;
 };
 
 const Component = ({

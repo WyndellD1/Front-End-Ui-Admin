@@ -18,7 +18,9 @@ export default {
   component: RegistrationForm,
 } as Meta;
 
-const Template: Story<RegistrationFormProps> = () => {
+const Template: Story<RegistrationFormProps> = (
+  props: RegistrationFormProps,
+) => {
   const [, setValue] = useState<Date | null>(new Date());
   const handleChangeValue = (value: any) => {
     setValue(value);
@@ -26,7 +28,11 @@ const Template: Story<RegistrationFormProps> = () => {
 
   return (
     <BrowserRouter>
-      <RegistrationForm onChange={handleChangeValue} onRegister={() => {}} />
+      <RegistrationForm
+        {...props}
+        onChange={handleChangeValue}
+        onRegister={() => {}}
+      />
     </BrowserRouter>
   );
 };
