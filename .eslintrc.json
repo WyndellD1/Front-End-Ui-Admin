@@ -31,6 +31,8 @@
         "devDependencies": ["**/stories.tsx"]
       }
     ],
+    "react/jsx-no-constructed-context-values": "off",
+    "react-hooks/exhaustive-deps": "off",
     "react/jsx-uses-react": ["off"],
     "react/react-in-jsx-scope": ["off"],
     "no-shadow": "off",
@@ -44,11 +46,18 @@
     "no-empty-pattern": "off",
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
     "no-nested-ternary": "off",
     "react/no-array-index-key": "off",
     "no-console": "off",
     "no-unneeded-ternary": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "class-methods-use-this": "off",
+    "prefer-destructuring": "off",
+    "no-lonely-if": "off",
+    "no-else-return": "off",
+    "@typescript-eslint/lines-between-class-members": "off"
   },
   "overrides": [
     {

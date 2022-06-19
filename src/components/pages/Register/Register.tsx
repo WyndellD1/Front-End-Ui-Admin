@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useWindowResize } from '../../../hooks/common';
+import useWindowResize from '../../../utils/useWindowResize';
 import { Appbar } from '../../molecules/Appbar';
 import { Register } from '../../templates/Register';
 

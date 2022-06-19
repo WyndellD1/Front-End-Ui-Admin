@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import reportWebVitals from './reportWebVitals';
 import RootNavigator from './navigators/root/RootNavigator';
 
@@ -10,7 +11,22 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <RootNavigator />
+    <QueryClientProvider
+      client={
+        new QueryClient({
+          defaultOptions: {
+            queries: {
+              retry: 0,
+              suspense: false,
+              refetchOnMount: true,
+              refetchOnWindowFocus: false,
+            },
+          },
+        })
+      }
+    >
+      <RootNavigator />
+    </QueryClientProvider>
   </StrictMode>,
 );
 
