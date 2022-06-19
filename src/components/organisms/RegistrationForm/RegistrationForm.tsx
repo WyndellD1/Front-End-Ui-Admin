@@ -40,6 +40,7 @@ const RadioGroupContainer = styled.div`
 `;
 
 export type Props = {
+  initialValue: SignUpValues & { password: string };
   onChange: (value: any) => void;
   onRegister: () => void;
   onChangeFirstName: (text: string) => void;
@@ -69,6 +70,7 @@ const Component = ({
   onChangePhone,
   onChangeBirthdate,
   birthDate,
+  initialValue,
 }: Props) => {
   return (
     <Grid container spacing={2}>
@@ -78,6 +80,7 @@ const Component = ({
           size="small"
           id="firstname"
           fullWidth
+          value={initialValue.firstName}
           type="text"
           variant="outlined"
           label="First Name"
@@ -92,6 +95,7 @@ const Component = ({
           type="text"
           variant="outlined"
           label="Middle Name"
+          value={initialValue.middleName}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -103,6 +107,7 @@ const Component = ({
           fullWidth
           variant="outlined"
           label="Last Name"
+          value={initialValue.lastName}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -119,13 +124,14 @@ const Component = ({
             onChange={(event: ChangeEvent, value: string) =>
               onChangeGender(value)
             }
+            value={initialValue.gender}
             isRow
             fontColor={theme.colors.black01}
             radioButtonSize="small"
             label="Gender"
             items={[
               { label: 'Male', value: 'male' },
-              { label: 'Female', value: 'femmale' },
+              { label: 'Female', value: 'female' },
             ]}
             id="gender"
           />
@@ -140,6 +146,7 @@ const Component = ({
           type="text"
           variant="outlined"
           label="Phone Number"
+          value={initialValue.phoneNumber}
         />
       </Grid>
       <Grid item xs={12}>
@@ -151,6 +158,7 @@ const Component = ({
           type="text"
           variant="outlined"
           label="E-mail Address"
+          value={initialValue.email}
         />
       </Grid>
       <Grid item xs={12}>
@@ -162,6 +170,7 @@ const Component = ({
           type="password"
           variant="outlined"
           label="Password"
+          value={initialValue.password}
         />
       </Grid>
       <Grid item xs={12}>

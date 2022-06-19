@@ -33,6 +33,7 @@ export type Props = {
   inputProps?: Object;
   fullWidth?: boolean;
   placeholder?: string;
+  value?: string;
   onChangeText?: (text: string) => void;
 };
 
@@ -49,6 +50,7 @@ const Component = ({
   fullWidth,
   placeholder,
   onChangeText,
+  value,
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [newType, setNewType] = useState<string>('password');
@@ -69,6 +71,7 @@ const Component = ({
       disabled={disabled}
       variant={variant}
       id={id}
+      value={value}
       placeholder={placeholder}
       error={error}
       type={type === 'password' ? newType : type}

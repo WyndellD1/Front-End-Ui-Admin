@@ -378,6 +378,7 @@ const Component = ({}: Props) => {
                   <SocialMedia />
                   <HelperText>or create using our own form</HelperText>
                   <RegistrationForm
+                    initialValue={values}
                     onChangeGender={handleChange('gender')}
                     onChangeFirstName={handleChange('firstName')}
                     onChangeLastName={handleChange('lastName')}
