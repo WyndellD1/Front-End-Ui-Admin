@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Error when running npm install
 
-If you get an error when running npm install please run npm install --legacy-peer-deps instead
+If you get an error when running `npm install` please run `npm install --legacy-peer-deps` instead
 
 ## Available Scripts
 
