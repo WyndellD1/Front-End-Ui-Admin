@@ -363,7 +363,7 @@ const Component = ({}: Props) => {
                     </HomepageLinkContainer>
                     <LoginLinkContainer>
                       <HelperText>Already have an account?</HelperText>
-                      <StyledLink to="/">Login</StyledLink>
+                      <StyledLink to="/login">Login</StyledLink>
                     </LoginLinkContainer>
                   </NavigationBar>
                   <MainRegistrationHeaderContainer>

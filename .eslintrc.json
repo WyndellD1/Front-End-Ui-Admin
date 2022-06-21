@@ -57,7 +57,8 @@
     "prefer-destructuring": "off",
     "no-lonely-if": "off",
     "no-else-return": "off",
-    "@typescript-eslint/lines-between-class-members": "off"
+    "@typescript-eslint/lines-between-class-members": "off",
+    "import/order": "off"
   },
   "overrides": [
     {
