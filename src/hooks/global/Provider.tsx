@@ -19,7 +19,6 @@ const Provider = (props: Props): React.ReactElement => {
       const item = getItem(storageKeys.USER_STORAGE_KEY);
       const user = item ? JSON.parse(item) : INITIAL_USER;
       const token = user?.user?.token;
-      httpAdapter.setToken(token);
       return user;
     } catch (error) {
       console.error(error);
@@ -38,7 +37,6 @@ const Provider = (props: Props): React.ReactElement => {
       currentUser,
       setCurrentUser: (user?: object): void => {
         const typedUser = user as CurrentUser | undefined;
-        httpAdapter.setToken(typedUser?.user.token || '');
         setCurrentUser(typedUser);
         setItem(storageKeys.USER_STORAGE_KEY, JSON.stringify(typedUser));
       },

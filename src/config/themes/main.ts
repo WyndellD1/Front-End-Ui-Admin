@@ -13,6 +13,10 @@ const colors = {
   shadow: '#0000000D',
   gray03: '#eeeeee',
   blue01: '#1778F2',
+  inlineErrorText: '#842029',
+  inlineErrorToastBg: '#F8D7DA',
+  inlineErrorToastBorder: '#F5C2C7',
+  textError: '#FF0000',
 };
 
 // Sample usage: @media ${theme.breakpoints.mobileAndTablet} { ...styling }

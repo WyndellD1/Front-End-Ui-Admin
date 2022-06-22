@@ -4,5 +4,4 @@ export interface HttpAdapter {
   patch(url: string, body: Object): Promise<any>;
   put(url: string, body: Object): Promise<any>;
   delete(url: string, body: Object): Promise<any>;
-  setToken(token: string): void;
 }

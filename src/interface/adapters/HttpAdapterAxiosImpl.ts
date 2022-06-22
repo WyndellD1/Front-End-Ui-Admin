@@ -8,13 +8,16 @@ import {
 import { HttpAdapter } from '../../usecases/ports/HttpAdapter';
 
 export default class HttpAdapterAxiosImpl implements HttpAdapter {
-  token?: string;
   axios: AxiosInstance;
 
   constructor(axios: AxiosStatic, baseURL?: string) {
     if (baseURL) {
       this.axios = axios.create({
         baseURL,
+        withCredentials: true,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
       });
     } else {
       this.axios = axios;
@@ -25,7 +28,9 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
     const statusCode = (error.response?.data as any)?.status_code;
 
     if (statusCode && statusCode === 401) {
-      window.location.href = '/signin?isNotAuth=true';
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
     }
 
     return error;
@@ -33,10 +38,7 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   get = (url: string, options: Object): Promise<AxiosResponse> => {
     try {
-      const config = this.token
-        ? { ...options, headers: { Authorization: `Bearer ${this.token}` } }
-        : options;
-      return this.axios.get(url, config);
+      return this.axios.get(url, options);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
@@ -48,11 +50,7 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse> => {
     try {
-      const newConfig = this.token
-        ? { ...config, headers: { Authorization: `Bearer ${this.token}` } }
-        : { ...config };
-
-      return await this.axios.post(url, body, newConfig);
+      return await this.axios.post(url, body, config);
     } catch (err) {
       const error = err as AxiosError;
 
@@ -66,11 +64,7 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   patch = (url: string, body: Object): Promise<AxiosResponse> => {
     try {
-      const config = this.token
-        ? { headers: { Authorization: `Bearer ${this.token}` } }
-        : {};
-
-      return this.axios.patch(url, body, config);
+      return this.axios.patch(url, body);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
@@ -78,11 +72,7 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   put = (url: string, body: Object): Promise<AxiosResponse> => {
     try {
-      const config = this.token
-        ? { headers: { Authorization: `Bearer ${this.token}` } }
-        : {};
-
-      return this.axios.put(url, body, config);
+      return this.axios.put(url, body);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
@@ -90,17 +80,9 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   delete = (url: string, options: Object): Promise<AxiosResponse> => {
     try {
-      const config = this.token
-        ? { ...options, headers: { Authorization: `Bearer ${this.token}` } }
-        : options;
-
-      return this.axios.delete(url, config);
+      return this.axios.delete(url, options);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
-  };
-
-  setToken = (token: string): void => {
-    this.token = token;
   };
 }

@@ -23,7 +23,15 @@ export default class AuthServiceRestImpl implements AuthService {
     password: string,
     remember: boolean,
   ): Promise<{ user: object | null }> {
-    return { user: null };
+    await this.httpAdapter.get(this.urls.csrf, {});
+
+    const response = await this.httpAdapter.post(this.urls.login, {
+      email,
+      password,
+      remember,
+    });
+
+    return { user: response };
   }
 
   signUp = async (
