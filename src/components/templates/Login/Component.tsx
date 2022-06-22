@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { Divider } from '@mui/material';
 import { ArrowBackIos } from '@mui/icons-material';
@@ -9,6 +9,10 @@ import Logo from '../../../assets/images/Logo.png';
 import { SubHeader } from '../../molecules/SubHeader';
 import { LoginForm } from '../../organisms/LoginForm';
 import { SocialMedia } from '../../organisms/SocialMedia';
+import { useAuthHooks } from '../../../hooks/auth';
+import { useMutation } from 'react-query';
+import { LoginSchema } from './validation';
+import { AxiosError } from 'axios';
 
 export type Props = {};
 
@@ -147,18 +151,55 @@ const Component = ({}: Props) => {
   const initialValue = {
     email: '',
     password: '',
+    remember: false,
   };
 
-  const handleSubmitData = () => {};
+  const { useLogin } = useAuthHooks();
+  const { login } = useLogin();
+  const [apiError, setApiError] = useState('');
+
+  const { mutate: loginMutation, isLoading: isLoggingIn } = useMutation(
+    (payload: { email: string; password: string; remember: boolean }) => {
+      const { email, password, remember } = payload;
+      return login(email, password, remember);
+    },
+    {
+      onError: (error) => {
+        const err = error as AxiosError;
+        const errMessage = err.response?.data as {
+          message: string;
+          status_code: number;
+        };
+        setApiError(errMessage.message);
+      },
+    },
+  );
+
+  const handleSubmitData = useCallback(
+    (values: { email: string; password: string; remember: boolean }) => {
+      loginMutation({
+        ...values,
+      });
+    },
+    [],
+  );
 
   return (
     <Container>
       <Formik
         enableReinitialize
+        validationSchema={LoginSchema}
         initialValues={initialValue}
         onSubmit={handleSubmitData}
       >
-        {(): React.ReactElement => {
+        {({
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          errors,
+          touched,
+          setFieldTouched,
+        }): React.ReactElement => {
           return (
             <FormWrapper>
               <FormCenteredContainer>
@@ -177,7 +218,18 @@ const Component = ({}: Props) => {
                   </SubHeader>
                 </MainRegistrationHeaderContainer>
 
-                <LoginForm />
+                <LoginForm
+                  setFieldTouched={setFieldTouched}
+                  errors={{
+                    email: (touched.email && errors.email) || '',
+                    apiError,
+                  }}
+                  disabled={isLoggingIn}
+                  onChangeEmail={handleChange('email')}
+                  onChangePassword={handleChange('password')}
+                  onLogin={handleSubmit}
+                  onBlurEmail={handleBlur('email')}
+                />
                 <AdditionalInformation>
                   <LinkContainer>
                     <StyledLink to="/">Forgot Password?</StyledLink>

@@ -1,3 +1,4 @@
 import Messenger from './Messenger';
+import Close from './Close';
 
-export { Messenger };
+export { Messenger, Close };

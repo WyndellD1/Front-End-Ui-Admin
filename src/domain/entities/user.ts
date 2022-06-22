@@ -27,7 +27,6 @@ export type UserDetails = {
 };
 
 export type User = {
-  token: string;
   isVerified: boolean;
   details: UserDetails;
 } & BaseModel;

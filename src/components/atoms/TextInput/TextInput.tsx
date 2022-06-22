@@ -35,6 +35,7 @@ export type Props = {
   placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 };
 
 const Component = ({
@@ -50,6 +51,7 @@ const Component = ({
   fullWidth,
   placeholder,
   onChangeText,
+  onBlur,
   value,
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -66,6 +68,7 @@ const Component = ({
 
   return (
     <StyledTextInput
+      onBlur={onBlur}
       onChange={onChange}
       label={label}
       disabled={disabled}
