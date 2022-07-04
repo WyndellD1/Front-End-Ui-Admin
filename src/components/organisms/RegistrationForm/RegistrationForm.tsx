@@ -39,8 +39,30 @@ const RadioGroupContainer = styled.div`
   }
 `;
 
+const ErrorMessage = styled.span`
+  width: 436px;
+  color: ${theme.colors.textError};
+  margin-top: 8px;
+  text-align: left;
+
+  @media ${theme.breakpoints.mobile} {
+    width: 100%;
+  }
+`;
+
 export type Props = {
   initialValue: SignUpValues & { password: string };
+  birthDate: any;
+  errors: {
+    firstName?: string;
+    phoneNumber?: string;
+    middleName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    gender?: string;
+    apiError?: string;
+  };
   onChange: (value: any) => void;
   onRegister: () => void;
   onChangeFirstName: (text: string) => void;
@@ -55,7 +77,11 @@ export type Props = {
     value: any,
     shouldValidate?: boolean,
   ) => void;
-  birthDate: any;
+  setFieldTouched: (
+    field: string,
+    isTouched?: boolean,
+    shouldValidate?: boolean,
+  ) => void;
 };
 
 const Component = ({
@@ -69,14 +95,20 @@ const Component = ({
   onChangePassword,
   onChangePhone,
   onChangeBirthdate,
+  setFieldTouched,
   birthDate,
   initialValue,
+  errors,
 }: Props) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextInput
-          onChangeText={onChangeFirstName}
+          onChangeText={(value: string) => {
+            setFieldTouched('firstName');
+            onChangeFirstName(value);
+          }}
+          error={!!errors.firstName}
           size="small"
           id="firstname"
           fullWidth
@@ -85,10 +117,15 @@ const Component = ({
           variant="outlined"
           label="First Name"
         />
+        {errors?.firstName && <ErrorMessage>{errors.firstName}</ErrorMessage>}
       </Grid>
       <Grid item xs={12} md={6}>
         <TextInput
-          onChangeText={onChangeMiddleName}
+          onChangeText={(value: string) => {
+            setFieldTouched('middleName');
+            onChangeMiddleName(value);
+          }}
+          error={!!errors.middleName}
           size="small"
           id="middlename"
           fullWidth
@@ -97,10 +134,15 @@ const Component = ({
           label="Middle Name"
           value={initialValue.middleName}
         />
+        {errors?.middleName && <ErrorMessage>{errors.middleName}</ErrorMessage>}
       </Grid>
       <Grid item xs={12} md={6}>
         <TextInput
-          onChangeText={onChangeLastName}
+          onChangeText={(value: string) => {
+            setFieldTouched('lastName');
+            onChangeLastName(value);
+          }}
+          error={!!errors.lastName}
           size="small"
           id="lastname"
           type="text"
@@ -109,6 +151,7 @@ const Component = ({
           label="Last Name"
           value={initialValue.lastName}
         />
+        {errors?.lastName && <ErrorMessage>{errors.lastName}</ErrorMessage>}
       </Grid>
       <Grid item xs={12} md={6}>
         <DatePicker
@@ -121,9 +164,10 @@ const Component = ({
       <Grid item xs={12} md={6}>
         <RadioGroupContainer>
           <RadioGroup
-            onChange={(event: ChangeEvent, value: string) =>
-              onChangeGender(value)
-            }
+            onChange={(event: ChangeEvent, value: string) => {
+              onChangeGender(value);
+              setFieldTouched('gender');
+            }}
             value={initialValue.gender}
             isRow
             fontColor={theme.colors.black01}
@@ -136,10 +180,15 @@ const Component = ({
             id="gender"
           />
         </RadioGroupContainer>
+        {errors?.gender && <ErrorMessage>{errors.gender}</ErrorMessage>}
       </Grid>
       <Grid item xs={12}>
         <TextInput
-          onChangeText={onChangePhone}
+          onChangeText={(value: string) => {
+            setFieldTouched('phoneNumber');
+            onChangePhone(value);
+          }}
+          error={!!errors.phoneNumber}
           size="small"
           id="phone"
           fullWidth
@@ -148,10 +197,17 @@ const Component = ({
           label="Phone Number"
           value={initialValue.phoneNumber}
         />
+        {errors?.phoneNumber && (
+          <ErrorMessage>{errors.phoneNumber}</ErrorMessage>
+        )}
       </Grid>
       <Grid item xs={12}>
         <TextInput
-          onChangeText={onChangeEmail}
+          onChangeText={(value: string) => {
+            setFieldTouched('email');
+            onChangeEmail(value);
+          }}
+          error={!!errors.email}
           size="small"
           id="email"
           fullWidth
@@ -160,10 +216,15 @@ const Component = ({
           label="E-mail Address"
           value={initialValue.email}
         />
+        {errors?.email && <ErrorMessage>{errors.email}</ErrorMessage>}
       </Grid>
       <Grid item xs={12}>
         <TextInput
-          onChangeText={onChangePassword}
+          onChangeText={(value: string) => {
+            setFieldTouched('password');
+            onChangePassword(value);
+          }}
+          error={!!errors.password}
           size="small"
           id="password"
           fullWidth
@@ -172,6 +233,7 @@ const Component = ({
           label="Password"
           value={initialValue.password}
         />
+        {errors?.password && <ErrorMessage>{errors.password}</ErrorMessage>}
       </Grid>
       <Grid item xs={12}>
         <HelperText>

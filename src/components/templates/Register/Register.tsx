@@ -20,6 +20,7 @@ import { SocialMedia } from '../../organisms/SocialMedia';
 import { EducationStatusTypes } from '../../organisms/RegistrationForm/EducationalBackground';
 import { useAuthHooks } from '../../../hooks/auth';
 import { SignUpValues } from './types';
+import { RegisterSchema } from './validation';
 
 const Container = styled.div`
   display: flex;
@@ -251,7 +252,7 @@ const Component = ({}: Props) => {
     lastName: '',
     birthdate: new Date(),
     phoneNumber: '',
-    gender: '',
+    gender: 'male',
     email: '',
     role: '',
     password: '',
@@ -345,12 +346,16 @@ const Component = ({}: Props) => {
         enableReinitialize
         initialValues={initialValue}
         onSubmit={handleSubmitData}
+        validationSchema={RegisterSchema}
       >
         {({
           handleSubmit,
           handleChange,
           setFieldValue,
+          setFieldTouched,
+          errors,
           values,
+          touched,
         }): React.ReactElement => {
           return (
             <FormWrapper>
@@ -379,6 +384,19 @@ const Component = ({}: Props) => {
                   <HelperText>or create using our own form</HelperText>
                   <RegistrationForm
                     initialValue={values}
+                    birthDate={values.birthdate}
+                    errors={{
+                      firstName: (touched.firstName && errors.firstName) || '',
+                      middleName:
+                        (touched.middleName && errors.middleName) || '',
+                      phoneNumber:
+                        (touched.phoneNumber && errors.phoneNumber) || '',
+                      email: (touched.email && errors.email) || '',
+                      gender: (touched.gender && errors.gender) || '',
+                      lastName: (touched.lastName && errors.lastName) || '',
+                      password: (touched.password && errors.password) || '',
+                    }}
+                    setFieldTouched={setFieldTouched}
                     onChangeGender={handleChange('gender')}
                     onChangeFirstName={handleChange('firstName')}
                     onChangeLastName={handleChange('lastName')}
@@ -388,7 +406,6 @@ const Component = ({}: Props) => {
                     onChangeEmail={handleChange('email')}
                     onChangeBirthdate={setFieldValue}
                     onRegister={handleSubmit}
-                    birthDate={values.birthdate}
                     onChange={handleChangeBirthdate}
                   />
                   <MobileNavigation>
