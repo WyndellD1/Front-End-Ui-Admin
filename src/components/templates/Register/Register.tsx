@@ -1,9 +1,9 @@
 import { ArrowBackIos } from '@mui/icons-material';
 import { Divider } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { useMutation } from 'react-query';
 import { theme } from '../../../config';
 import { CircularStepper, Stepper } from '../../atoms/Stepper';
@@ -21,6 +21,8 @@ import { EducationStatusTypes } from '../../organisms/RegistrationForm/Education
 import { useAuthHooks } from '../../../hooks/auth';
 import { SignUpValues } from './types';
 import { RegisterSchema } from './validation';
+import { useSnackbar } from 'notistack';
+import { AxiosResponse } from 'axios';
 
 const Container = styled.div`
   display: flex;
@@ -258,8 +260,21 @@ const Component = ({}: Props) => {
     password: '',
   };
 
+  const formikRef = useRef<FormikProps<any>>(null);
+
+  const { enqueueSnackbar } = useSnackbar();
   const { useSignUp } = useAuthHooks();
   const { signUpUser } = useSignUp();
+  const [serverErrors, setServerErrors] = useState({
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    phoneNumber: '',
+    gender: '',
+    email: '',
+    role: '',
+    password: '',
+  });
 
   const [steps, setSteps] = useState<number>(0);
   const [formValues, setFormValues] = useState<{
@@ -271,10 +286,6 @@ const Component = ({}: Props) => {
     educationStatus: 'student',
     yearAttended: new Date(),
   });
-
-  const handleChangeBirthdate = (value: any) => {
-    setFormValues({ ...formValues, date: value });
-  };
 
   const handleClickNext = () => {
     if (steps < 4) {
@@ -303,8 +314,24 @@ const Component = ({}: Props) => {
       return signUpUser(data, password);
     },
     {
-      onSuccess: (data) => console.log(data),
-      onError: (error) => console.log(error),
+      onSuccess: () => {
+        enqueueSnackbar('Registered SuccessFully', { variant: 'success' });
+        formikRef.current?.resetForm();
+      },
+      onError: (error: { response: AxiosResponse }) => {
+        if (error.response?.status === 422) {
+          setServerErrors({
+            firstName: error.response?.data?.errors?.userFirstName,
+            lastName: error.response?.data?.errors?.userLastName,
+            gender: error.response?.data?.errors?.userGender,
+            password: error.response?.data?.errors?.password,
+            email: error.response?.data?.errors?.email,
+            phoneNumber: error.response?.data?.errors?.userPhoneNum,
+            role: '',
+            middleName: error.response?.data?.errors?.userMiddleName,
+          });
+        }
+      },
     },
   );
 
@@ -343,7 +370,7 @@ const Component = ({}: Props) => {
         </InformationContainer>
       </DetailsWrapper>
       <Formik
-        enableReinitialize
+        innerRef={formikRef}
         initialValues={initialValue}
         onSubmit={handleSubmitData}
         validationSchema={RegisterSchema}
@@ -356,7 +383,9 @@ const Component = ({}: Props) => {
           errors,
           values,
           touched,
+          isValid,
         }): React.ReactElement => {
+          const combinedErrors = { ...serverErrors, ...errors };
           return (
             <FormWrapper>
               {steps === 0 && (
@@ -386,15 +415,19 @@ const Component = ({}: Props) => {
                     initialValue={values}
                     birthDate={values.birthdate}
                     errors={{
-                      firstName: (touched.firstName && errors.firstName) || '',
+                      firstName:
+                        (touched.firstName && combinedErrors.firstName) || '',
                       middleName:
-                        (touched.middleName && errors.middleName) || '',
+                        (touched.middleName && combinedErrors.middleName) || '',
                       phoneNumber:
-                        (touched.phoneNumber && errors.phoneNumber) || '',
-                      email: (touched.email && errors.email) || '',
-                      gender: (touched.gender && errors.gender) || '',
-                      lastName: (touched.lastName && errors.lastName) || '',
-                      password: (touched.password && errors.password) || '',
+                        (touched.phoneNumber && combinedErrors.phoneNumber) ||
+                        '',
+                      email: (touched.email && combinedErrors.email) || '',
+                      gender: (touched.gender && combinedErrors.gender) || '',
+                      lastName:
+                        (touched.lastName && combinedErrors.lastName) || '',
+                      password:
+                        (touched.password && combinedErrors.password) || '',
                     }}
                     setFieldTouched={setFieldTouched}
                     onChangeGender={handleChange('gender')}
@@ -406,7 +439,8 @@ const Component = ({}: Props) => {
                     onChangeEmail={handleChange('email')}
                     onChangeBirthdate={setFieldValue}
                     onRegister={handleSubmit}
-                    onChange={handleChangeBirthdate}
+                    isLoading={isSigningUp}
+                    disabled={!isValid}
                   />
                   <MobileNavigation>
                     <Divider />

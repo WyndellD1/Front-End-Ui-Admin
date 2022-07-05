@@ -21,18 +21,9 @@ export default {
 const Template: Story<RegistrationFormProps> = (
   props: RegistrationFormProps,
 ) => {
-  const [, setValue] = useState<Date | null>(new Date());
-  const handleChangeValue = (value: any) => {
-    setValue(value);
-  };
-
   return (
     <BrowserRouter>
-      <RegistrationForm
-        {...props}
-        onChange={handleChangeValue}
-        onRegister={() => {}}
-      />
+      <RegistrationForm {...props} onRegister={() => {}} />
     </BrowserRouter>
   );
 };
