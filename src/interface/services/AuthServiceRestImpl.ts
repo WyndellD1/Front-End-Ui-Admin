@@ -40,14 +40,14 @@ export default class AuthServiceRestImpl implements AuthService {
   ): Promise<object | null> => {
     const params = {
       userBday: format(data.birthdate, 'yyyy-MM-dd HH:mm:ss'),
-      userEmailAdd: data.email,
+      email: data.email,
       userMiddleName: data.middleName,
       userFirstName: data.firstName,
       userGender: data.gender,
       userLastName: data.lastName,
-      userPass: password,
+      password,
       userPhoneNum: data.phoneNumber,
-      userPass_confirmation: password,
+      password_confirmation: password,
       remember: 0,
     };
 

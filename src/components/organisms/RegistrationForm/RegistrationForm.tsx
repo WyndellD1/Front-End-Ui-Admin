@@ -63,7 +63,6 @@ export type Props = {
     gender?: string;
     apiError?: string;
   };
-  onChange: (value: any) => void;
   onRegister: () => void;
   onChangeFirstName: (text: string) => void;
   onChangeEmail: (text: string) => void;
@@ -82,11 +81,12 @@ export type Props = {
     isTouched?: boolean,
     shouldValidate?: boolean,
   ) => void;
+  isLoading?: boolean;
+  disabled?: boolean;
 };
 
 const Component = ({
   onRegister,
-  onChange,
   onChangeFirstName,
   onChangeGender,
   onChangeLastName,
@@ -99,6 +99,8 @@ const Component = ({
   birthDate,
   initialValue,
   errors,
+  isLoading,
+  disabled,
 }: Props) => {
   return (
     <Grid container spacing={2}>
@@ -247,6 +249,7 @@ const Component = ({
           onClick={onRegister}
           fullWidth
           type="contained"
+          disabled={disabled || isLoading}
           label="Register"
         />
       </Grid>
