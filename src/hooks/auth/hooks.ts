@@ -56,3 +56,18 @@ export const useSignUp: AuthHooks['useSignUp'] = (): {
 
   return { signUpUser };
 };
+
+export const useResendVerification: AuthHooks['useResendVerification'] = (): {
+  resendVerification: () => Promise<void>;
+} => {
+  const { authInteractor } = useDependencies();
+  const { resendVerificationEmail } = authInteractor;
+
+  const resendVerification = useCallback(async () => {
+    const response = await resendVerificationEmail();
+
+    return response;
+  }, []);
+
+  return { resendVerification };
+};

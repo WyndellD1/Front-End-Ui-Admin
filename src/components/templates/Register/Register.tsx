@@ -1,7 +1,7 @@
 import { ArrowBackIos } from '@mui/icons-material';
 import { Divider } from '@mui/material';
 import React, { useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Formik, FormikProps } from 'formik';
 import { useMutation } from 'react-query';
@@ -21,7 +21,6 @@ import { EducationStatusTypes } from '../../organisms/RegistrationForm/Education
 import { useAuthHooks } from '../../../hooks/auth';
 import { SignUpValues } from './types';
 import { RegisterSchema } from './validation';
-import { useSnackbar } from 'notistack';
 import { AxiosResponse } from 'axios';
 
 const Container = styled.div`
@@ -262,7 +261,7 @@ const Component = ({}: Props) => {
 
   const formikRef = useRef<FormikProps<any>>(null);
 
-  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const { useSignUp } = useAuthHooks();
   const { signUpUser } = useSignUp();
   const [serverErrors, setServerErrors] = useState({
@@ -315,12 +314,7 @@ const Component = ({}: Props) => {
     },
     {
       onSuccess: () => {
-        enqueueSnackbar('Registered SuccessFully', {
-          variant: 'success',
-          anchorOrigin: { vertical: 'top', horizontal: 'right' },
-          autoHideDuration: 5000,
-        });
-        formikRef.current?.resetForm();
+        navigate('/verify-email');
       },
       onError: (error: { response: AxiosResponse }) => {
         if (error.response?.status === 422) {

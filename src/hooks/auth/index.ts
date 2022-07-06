@@ -15,6 +15,9 @@ export type AuthHooks = {
       password: string,
     ) => Promise<Object | null>;
   };
+  useResendVerification: () => {
+    resendVerification: () => Promise<void>;
+  };
 };
 
 export const AuthHooksContext = createContext<AuthHooks | null>(null);
