@@ -8,7 +8,7 @@ import {
   EducationalBackground,
   EmergencyContact,
 } from '.';
-import { Props as RegistrationFormProps } from './RegistrationForm';
+import { Props as RegistrationFormProps } from './Component';
 import { Props as PersonalInformationProps } from './PersonalInformation';
 import { Props as EducationalBackgroundProps } from './EducationalBackground';
 import { Props as EmergencyContactProps } from './EmergencyContact';

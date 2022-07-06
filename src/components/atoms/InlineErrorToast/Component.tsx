@@ -4,7 +4,7 @@ import { theme } from '../../../config';
 import { Close } from '../Icons';
 
 const Container = styled.div`
-  width: calc(100% - 32px);
+  width: 100%;
   padding: 16px;
   display: flex;
   flex-direction: row;
@@ -17,8 +17,8 @@ const Container = styled.div`
 
 const ErrorText = styled.span`
   color: ${theme.colors.inlineErrorText};
-  max-width: 388px;
   line-break: strict;
+  margin-right: 3em;
 `;
 
 const StyledClose = styled(Close)`

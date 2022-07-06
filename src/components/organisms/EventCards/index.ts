@@ -1,3 +1,3 @@
-import EventCards from './EventCards';
+import EventCards from './Component';
 
 export { EventCards };

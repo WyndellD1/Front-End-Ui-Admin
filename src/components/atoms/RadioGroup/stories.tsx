@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import { Story } from '@storybook/react/types-6-0';
 import { RadioGroup } from '.';
-import { Props } from './RadioGroup';
+import { Props } from './Component';
 
 export default {
   title: 'Atoms/RadioGroup',

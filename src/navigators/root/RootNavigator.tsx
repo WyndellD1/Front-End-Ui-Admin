@@ -9,8 +9,8 @@ import { useGlobalState } from '../../hooks/global';
 const UnprotectedRoutes = () => {
   return (
     <Routes>
-      <Route path="/*" element={<Navigate to="/home" />} />
-      <Route path="home" element={<HomePage />} />
+      <Route path="/*" element={<Navigate to="/" />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="register" element={<RegisterPage />} />
       <Route path="login" element={<LoginPage />} />
     </Routes>
@@ -20,9 +20,9 @@ const UnprotectedRoutes = () => {
 const ProtectedRoutes = () => {
   return (
     <Routes>
-      <Route path="/*" element={<Navigate to="/home" />} />
+      <Route path="/*" element={<Navigate to="/" />} />
       <Route path="about" element={<AboutPage />} />
-      <Route path="home" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
     </Routes>
   );
 };
