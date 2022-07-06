@@ -30,13 +30,22 @@ const StyledButton = styled(Button)`
 
 const NavbarContainer = styled.div``;
 
-const NavItem = styled.div`
+const NavItem = styled.div<{ isButton?: boolean }>`
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   color: ${theme.colors.gray01};
   font: normal normal normal 14px/18px Montserrat;
   gap: 0.2em;
   align-items: center;
+  padding: 0 1em;
+
+  ${({ isButton }) =>
+    isButton
+      ? ``
+      : `:hover {
+    background-color: ${theme.colors.primary02hover};
+  }`};
 `;
 
 const StyledImg = styled.img`
@@ -107,7 +116,7 @@ const Component = ({ children, isVisible = true, anchor = 'top' }: Props) => {
               }}
             >
               {information.map((info, index) => (
-                <NavItem key={index}>
+                <NavItem style={{ padding: '.5em 1em' }} key={index}>
                   {info.icon}
                   <span>{info.label}</span>
                 </NavItem>
@@ -122,12 +131,12 @@ const Component = ({ children, isVisible = true, anchor = 'top' }: Props) => {
               sx={{
                 flexGrow: 0,
                 display: { xs: 'none', md: 'flex' },
-                gap: '3em',
+                gap: '2em',
               }}
             >
-              <NavItem>HOME</NavItem>
+              <NavItem onClick={() => navigate('/')}>HOME</NavItem>
               <NavItem>YOUTH COUNCIL</NavItem>
-              <NavItem>
+              <NavItem isButton>
                 <StyledButton
                   onClick={() => {
                     navigate('/register');

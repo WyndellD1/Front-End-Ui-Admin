@@ -7,6 +7,7 @@ const urls = {
     login: `${API_URL}login`,
     signup: `${API_URL}register`,
     user: `${API_URL}user`,
+    resendVerification: `${API_URL}email/verification-notification`,
   },
 };
 

@@ -7,4 +7,5 @@ export default interface AuthService {
     remember: boolean,
   ): Promise<{ user: object | null }>;
   signUp(data: SignUpParams, password: string): Promise<object | null>;
+  resendVerificationEmail(): Promise<void>;
 }

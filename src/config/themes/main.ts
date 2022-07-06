@@ -7,6 +7,7 @@ const colors = {
   secondary: '#6975a7',
   primary: '#823c53',
   primary02: '#883A4F',
+  primary02hover: '#883a4f33',
   black01: '#444444',
   black02: '#414141',
   black03: '#292929',

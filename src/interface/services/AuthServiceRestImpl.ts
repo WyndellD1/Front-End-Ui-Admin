@@ -76,6 +76,16 @@ export default class AuthServiceRestImpl implements AuthService {
         throw new Error(message);
       }
     }
-    return null;
+  };
+
+  resendVerificationEmail = async (): Promise<void> => {
+    const response = await this.httpAdapter.post(
+      this.urls.resendVerification,
+      {},
+    );
+
+    console.log(response);
+
+    return response.data;
   };
 }
