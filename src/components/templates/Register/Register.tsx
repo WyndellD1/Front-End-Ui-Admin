@@ -315,7 +315,11 @@ const Component = ({}: Props) => {
     },
     {
       onSuccess: () => {
-        enqueueSnackbar('Registered SuccessFully', { variant: 'success' });
+        enqueueSnackbar('Registered SuccessFully', {
+          variant: 'success',
+          anchorOrigin: { vertical: 'top', horizontal: 'right' },
+          autoHideDuration: 5000,
+        });
         formikRef.current?.resetForm();
       },
       onError: (error: { response: AxiosResponse }) => {

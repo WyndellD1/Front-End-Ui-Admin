@@ -1,3 +1,3 @@
-import SocialMedia from './SocialMedia';
+import SocialMedia from './Component';
 
 export { SocialMedia };

@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react';
 import { Story } from '@storybook/react/types-6-0';
 import { BrowserRouter } from 'react-router-dom';
 import { Appbar } from '.';
-import { Props } from './Appbar';
+import { Props } from './Component';
 
 export default {
   title: 'Organisms/Appbar',

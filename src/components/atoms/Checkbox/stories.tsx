@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Story } from '@storybook/react/types-6-0';
 import { Checkbox } from '.';
-import { Props } from './Checkbox';
+import { Props } from './Component';
 
 export default {
   title: 'Atoms/Checkbox',

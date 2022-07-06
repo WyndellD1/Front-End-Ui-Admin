@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import { Story } from '@storybook/react/types-6-0';
 import { SubHeader } from '.';
-import { Props } from './SubHeader';
+import { Props } from './Component';
 
 export default {
   title: 'Organisms/SubHeader',

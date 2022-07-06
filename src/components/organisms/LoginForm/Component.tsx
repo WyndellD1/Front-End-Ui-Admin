@@ -34,7 +34,7 @@ const ErrorMessage = styled.span`
 `;
 
 const ApiErrorWrapper = styled.div`
-  width: 436px;
+  width: 100%;
   height: min-content;
   margin-top: 16px;
   margin-bottom: 16px;

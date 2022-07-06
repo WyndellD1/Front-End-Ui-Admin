@@ -1,3 +1,3 @@
-import HomeFooter from './HomeFooter';
+import HomeFooter from './Component';
 
 export { HomeFooter };

@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import { Story } from '@storybook/react/types-6-0';
 import { Select } from '.';
-import { Props, SelectItem } from './Select';
+import { Props, SelectItem } from './Component';
 
 export default {
   title: 'Atoms/Select',

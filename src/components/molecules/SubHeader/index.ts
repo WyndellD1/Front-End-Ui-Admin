@@ -1,3 +1,3 @@
-import SubHeader from './SubHeader';
+import SubHeader from './Component';
 
 export { SubHeader };

@@ -1,3 +1,3 @@
-import Appbar from './Appbar';
+import Appbar from './Component';
 
 export { Appbar };

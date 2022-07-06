@@ -206,7 +206,7 @@ const Component = ({}: Props) => {
                 <NavigationBar>
                   <HomepageLinkContainer>
                     <ArrowBackIos />
-                    <StyledLink to="/home">Return to Homepage</StyledLink>
+                    <StyledLink to="/">Return to Homepage</StyledLink>
                   </HomepageLinkContainer>
                 </NavigationBar>
                 <MainRegistrationHeaderContainer>
@@ -242,7 +242,7 @@ const Component = ({}: Props) => {
                   <Divider />
                   <LinkContainer>
                     <HelperText>Don't have an account?</HelperText>
-                    <StyledLink to="/">Create one now!</StyledLink>
+                    <StyledLink to="/register">Create one now!</StyledLink>
                   </LinkContainer>
                 </AdditionalInformation>
               </FormCenteredContainer>

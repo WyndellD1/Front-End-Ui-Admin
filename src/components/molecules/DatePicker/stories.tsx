@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Meta } from '@storybook/react';
 import { Story } from '@storybook/react/types-6-0';
 import { DatePicker } from '.';
-import { Props } from './DatePicker';
+import { Props } from './Component';
 
 export default {
   title: 'Molecules/DatePicker',

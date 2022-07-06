@@ -1,3 +1,3 @@
-import TodoPage from './Todo';
+import TodoPage from './Component';
 
 export { TodoPage };

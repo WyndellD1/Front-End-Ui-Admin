@@ -8,6 +8,7 @@ import {
 import { HttpAdapter } from '../../usecases/ports/HttpAdapter';
 
 export default class HttpAdapterAxiosImpl implements HttpAdapter {
+  token?: string;
   axios: AxiosInstance;
 
   constructor(axios: AxiosStatic, baseURL?: string) {
@@ -38,7 +39,11 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   get = (url: string, options: Object): Promise<AxiosResponse> => {
     try {
-      return this.axios.get(url, options);
+      const config = this.token
+        ? { ...options, headers: { Authorization: `Bearer ${this.token}` } }
+        : options;
+
+      return this.axios.get(url, config);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
@@ -50,7 +55,11 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse> => {
     try {
-      return await this.axios.post(url, body, config);
+      const newConfig = this.token
+        ? { ...config, headers: { Authorization: `Bearer ${this.token}` } }
+        : config;
+
+      return await this.axios.post(url, body, newConfig);
     } catch (err) {
       const error = err as AxiosError;
 
@@ -64,15 +73,23 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   patch = (url: string, body: Object): Promise<AxiosResponse> => {
     try {
-      return this.axios.patch(url, body);
+      const config = this.token
+        ? { headers: { Authorization: `Bearer ${this.token}` } }
+        : {};
+
+      return this.axios.patch(url, body, config);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
   };
 
   put = (url: string, body: Object): Promise<AxiosResponse> => {
+    const config = this.token
+      ? { headers: { Authorization: `Bearer ${this.token}` } }
+      : {};
+
     try {
-      return this.axios.put(url, body);
+      return this.axios.put(url, body, config);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
@@ -80,9 +97,17 @@ export default class HttpAdapterAxiosImpl implements HttpAdapter {
 
   delete = (url: string, options: Object): Promise<AxiosResponse> => {
     try {
-      return this.axios.delete(url, options);
+      const config = this.token
+        ? { ...options, headers: { Authorization: `Bearer ${this.token}` } }
+        : options;
+
+      return this.axios.delete(url, config);
     } catch (err) {
       throw this.checkAuthError(err as AxiosError);
     }
+  };
+
+  setToken = (token: string): void => {
+    this.token = token;
   };
 }

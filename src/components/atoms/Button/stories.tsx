@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Story } from '@storybook/react/types-6-0';
 import { Button } from '.';
-import { Props } from './Button';
+import { Props } from './Component';
 
 export default {
   title: 'Atoms/Button',
