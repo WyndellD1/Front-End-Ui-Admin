@@ -1,5 +1,13 @@
 import AuthService from '../../ports/AuthService';
 import {
+  buildCustomUrlRequest,
+  customUrlRequestUseCase,
+} from './custom-url-request';
+import {
+  buildFetchUserDetails,
+  fetchUserDetailsUseCase,
+} from './fetch-user-details';
+import {
   buildResendVerificationEmail,
   resendVerificationEmailUseCase,
 } from './resend-verification-email';
@@ -12,12 +20,22 @@ export default (dependencies: {
   signIn: signInUserUseCase;
   signUp: signUpUseCase;
   resendVerificationEmail: resendVerificationEmailUseCase;
+  customUrlRequest: customUrlRequestUseCase;
+  fetchUserDetails: fetchUserDetailsUseCase;
 } => {
   const { authService } = dependencies;
 
   const signIn = buildSignInUser({ authService });
   const signUp = buildSignUp({ authService });
   const resendVerificationEmail = buildResendVerificationEmail({ authService });
+  const customUrlRequest = buildCustomUrlRequest({ authService });
+  const fetchUserDetails = buildFetchUserDetails({ authService });
 
-  return { signIn, signUp, resendVerificationEmail };
+  return {
+    signIn,
+    signUp,
+    resendVerificationEmail,
+    customUrlRequest,
+    fetchUserDetails,
+  };
 };

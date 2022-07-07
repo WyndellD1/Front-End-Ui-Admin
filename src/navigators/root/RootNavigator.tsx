@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AboutPage } from '../../components/pages/About';
+import { EmailVerifiedPage } from '../../components/pages/EmailVerified';
 import { HomePage } from '../../components/pages/Home';
 import { LoginPage } from '../../components/pages/Login';
 import { RegisterPage } from '../../components/pages/Register';
@@ -15,6 +16,7 @@ const UnprotectedRoutes = () => {
       <Route path="register" element={<RegisterPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="verify-email" element={<VerifyEmailPage />} />
+      <Route path="verify-email-success" element={<EmailVerifiedPage />} />
     </Routes>
   );
 };

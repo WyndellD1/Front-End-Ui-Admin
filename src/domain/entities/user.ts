@@ -24,6 +24,7 @@ export type UserDetails = {
   email: string;
   status: string;
   role: string;
+  email_verified_at: Date | null;
 };
 
 export type User = {
