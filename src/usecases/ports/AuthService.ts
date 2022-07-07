@@ -1,4 +1,4 @@
-import { SignUpParams } from '../../domain/entities/user';
+import { SignUpParams, UserDetails } from '../../domain/entities/user';
 
 export default interface AuthService {
   signIn(
@@ -8,4 +8,6 @@ export default interface AuthService {
   ): Promise<{ user: object | null }>;
   signUp(data: SignUpParams, password: string): Promise<object | null>;
   resendVerificationEmail(): Promise<void>;
+  customUrlRequest(url: string): Promise<any>;
+  fetchUserDetails(): Promise<UserDetails>;
 }

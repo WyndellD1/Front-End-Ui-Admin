@@ -4,7 +4,7 @@ import {
   GenericError,
   LoginValidationError,
 } from '../../domain/entities/errors';
-import { User, SignUpParams } from '../../domain/entities/user';
+import { User, SignUpParams, UserDetails } from '../../domain/entities/user';
 import AuthService from '../../usecases/ports/AuthService';
 import { HttpAdapter } from '../../usecases/ports/HttpAdapter';
 
@@ -84,7 +84,17 @@ export default class AuthServiceRestImpl implements AuthService {
       {},
     );
 
-    console.log(response);
+    return response.data;
+  };
+
+  customUrlRequest = async (url: string): Promise<any> => {
+    const response = await this.httpAdapter.get(url, {});
+
+    return response.data;
+  };
+
+  fetchUserDetails = async (): Promise<UserDetails> => {
+    const response = await this.httpAdapter.get(this.urls.user, {});
 
     return response.data;
   };

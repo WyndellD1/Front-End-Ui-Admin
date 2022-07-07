@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { AuthHooks } from '.';
 import { useDependencies } from '..';
 import storageKeys from '../../constants/localStorage/storageKeys';
-import { SignUpParams } from '../../domain/entities/user';
+import { SignUpParams, UserDetails } from '../../domain/entities/user';
 import { useGlobalState } from '../global';
 
 export const useLogin: AuthHooks['useLogin'] = (): {
@@ -70,4 +70,34 @@ export const useResendVerification: AuthHooks['useResendVerification'] = (): {
   }, []);
 
   return { resendVerification };
+};
+
+export const useCustomUrlRequest: AuthHooks['useCustomUrlRequest'] = (): {
+  customUrlRequest: (url: string) => Promise<any>;
+} => {
+  const { authInteractor } = useDependencies();
+  const { customUrlRequest: requestUrl } = authInteractor;
+
+  const customUrlRequest = useCallback(async (url: string) => {
+    const response = await requestUrl(url);
+
+    return response;
+  }, []);
+
+  return { customUrlRequest };
+};
+
+export const useFetchUserDetails: AuthHooks['useFetchUserDetails'] = (): {
+  fetchUserDetails: () => Promise<UserDetails>;
+} => {
+  const { authInteractor } = useDependencies();
+  const { fetchUserDetails: fetchUser } = authInteractor;
+
+  const fetchUserDetails = useCallback(async () => {
+    const response = await fetchUser();
+
+    return response;
+  }, []);
+
+  return { fetchUserDetails };
 };

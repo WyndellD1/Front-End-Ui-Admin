@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { SignUpParams } from '../../domain/entities/user';
+import { SignUpParams, UserDetails } from '../../domain/entities/user';
 
 export type AuthHooks = {
   useLogin: () => {
@@ -17,6 +17,12 @@ export type AuthHooks = {
   };
   useResendVerification: () => {
     resendVerification: () => Promise<void>;
+  };
+  useCustomUrlRequest: () => {
+    customUrlRequest: (url: string) => Promise<any>;
+  };
+  useFetchUserDetails: () => {
+    fetchUserDetails: () => Promise<UserDetails>;
   };
 };
 
