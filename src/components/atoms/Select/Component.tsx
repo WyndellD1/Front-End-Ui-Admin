@@ -1,5 +1,13 @@
-import React from 'react';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { Fragment } from 'react';
+import {
+  Autocomplete,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import styled from 'styled-components';
 import { theme } from '../../../config';
 
@@ -38,6 +46,8 @@ export type Props = {
   size?: 'medium' | 'small';
   fullWidth?: boolean;
   inputProps?: Object;
+  isAsync?: boolean;
+  isLoading?: boolean;
 };
 
 const Component = ({
@@ -52,6 +62,8 @@ const Component = ({
   size,
   fullWidth,
   inputProps,
+  isAsync,
+  isLoading,
 }: Props) => {
   return (
     <StyledFormControl
@@ -60,23 +72,59 @@ const Component = ({
       error={error}
       disabled={disabled}
     >
-      <InputLabel>{label}</InputLabel>
-      <Select
-        id={id}
-        label={label}
-        value={value}
-        onChange={onChange}
-        variant={variant}
-        inputProps={inputProps}
-      >
-        {items.map((item: SelectItem) => {
-          return (
-            <MenuItem key={item.value} value={item.value}>
-              {item.label}
-            </MenuItem>
-          );
-        })}
-      </Select>
+      {isAsync ? (
+        <Autocomplete
+          size={size}
+          id={id}
+          options={items}
+          loading={isLoading}
+          value={value}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.value}>
+                {option.label}
+              </li>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={label}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <>
+                    {isLoading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
+            />
+          )}
+        />
+      ) : (
+        <>
+          <InputLabel>{label}</InputLabel>
+          <Select
+            id={id}
+            label={label}
+            value={value}
+            onChange={onChange}
+            variant={variant}
+            inputProps={inputProps}
+          >
+            {items.map((item: SelectItem) => {
+              return (
+                <MenuItem key={item.value} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </>
+      )}
     </StyledFormControl>
   );
 };

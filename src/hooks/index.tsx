@@ -3,7 +3,9 @@ import GlobalStateProvider from './global/Provider';
 import { dependencies, Dependencies } from './dependencies';
 import { AuthHooksContext } from './auth';
 import * as authHooks from './auth/hooks';
+import * as sitioHooks from './sitio/hooks';
 import { SnackbarProvider } from 'notistack';
+import { SitioHooksContext } from './sitio';
 
 export const DependenciesContext = React.createContext<Dependencies | null>(
   null,
@@ -27,7 +29,9 @@ const Provider = ({ children }: Props): React.ReactElement => {
       <SnackbarProvider>
         <GlobalStateProvider>
           <AuthHooksContext.Provider value={authHooks}>
-            {children}
+            <SitioHooksContext.Provider value={sitioHooks}>
+              {children}
+            </SitioHooksContext.Provider>
           </AuthHooksContext.Provider>
         </GlobalStateProvider>
       </SnackbarProvider>

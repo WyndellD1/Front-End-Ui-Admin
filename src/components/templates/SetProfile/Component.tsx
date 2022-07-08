@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { theme } from '../../../config';
+import queryKeys from '../../../constants/queryKeys';
+import { useSitioHooks } from '../../../hooks/sitio';
 import { CircularStepper } from '../../atoms/Stepper';
 import {
   AdditionalInformation,
@@ -104,6 +107,9 @@ const Component = ({
   handleChangeYearAttended,
   formValues,
 }: Props): React.ReactElement => {
+  const { useFetchSitios } = useSitioHooks();
+  const { fetchSitios } = useFetchSitios();
+
   const [step, setStep] = useState<number>(1);
 
   const handleClickNext = () => {
@@ -116,6 +122,19 @@ const Component = ({
       handleChangeStep(initialStep - 1);
     }
   };
+
+  const { data: sitios, isFetching: isFetchingSitios } = useQuery(
+    [queryKeys.FETCH_SITIOS],
+    async () => {
+      const response = await fetchSitios();
+      return response.map((sitio) => {
+        return {
+          label: sitio.name,
+          value: sitio.id,
+        };
+      });
+    },
+  );
 
   useEffect(() => {
     setStep(initialStep);
@@ -141,6 +160,8 @@ const Component = ({
             </MobileStepper>
           </HeaderContainer>
           <PersonalInformation
+            isFetchingSitios={isFetchingSitios}
+            sitios={sitios || []}
             clickNext={handleClickNext}
             clickPrevious={handleClickPrevious}
           />

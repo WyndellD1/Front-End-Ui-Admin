@@ -9,6 +9,9 @@ const urls = {
     user: `${API_URL}user`,
     resendVerification: `${API_URL}email/verification-notification`,
   },
+  sitio: {
+    fetchSitios: `${API_URL}sitios`,
+  },
 };
 
 export type URLsType = typeof urls;
