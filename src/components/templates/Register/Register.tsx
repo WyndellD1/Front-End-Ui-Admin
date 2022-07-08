@@ -6,17 +6,14 @@ import styled from 'styled-components';
 import { Formik, FormikProps } from 'formik';
 import { useMutation } from 'react-query';
 import { theme } from '../../../config';
-import { Stepper } from '../../atoms/Stepper';
 import { SubHeader } from '../../molecules/SubHeader';
 import { RegistrationForm } from '../../organisms/RegistrationForm';
 import Logo from '../../../assets/images/Logo.png';
 import { SocialMedia } from '../../organisms/SocialMedia';
-import { EducationStatusTypes } from '../../organisms/RegistrationForm/EducationalBackground';
 import { useAuthHooks } from '../../../hooks/auth';
 import { SignUpValues } from './types';
 import { RegisterSchema } from './validation';
 import { AxiosResponse } from 'axios';
-import { SetProfile } from '../SetProfile';
 
 const Container = styled.div`
   display: flex;
@@ -177,13 +174,6 @@ const InformationSubHeader = styled.div`
 export type Props = {};
 
 const Component = ({}: Props) => {
-  const initialSteps = [
-    'Personal Information',
-    'Educational Background',
-    'Additional Information',
-    'Emergency Contact',
-  ];
-
   const initialValue = {
     firstName: '',
     middleName: '',
@@ -211,27 +201,6 @@ const Component = ({}: Props) => {
     role: '',
     password: '',
   });
-
-  const [steps, setSteps] = useState<number>(0);
-  const [formValues, setFormValues] = useState<{
-    date: Date | null;
-    educationStatus: EducationStatusTypes;
-    yearAttended: Date | null;
-  }>({
-    date: new Date(),
-    educationStatus: 'student',
-    yearAttended: new Date(),
-  });
-
-  const handleEducationStatusChange = (event: React.ChangeEvent) => {
-    const target = event.target as HTMLInputElement;
-
-    setFormValues({ ...formValues, educationStatus: target.value });
-  };
-
-  const handleChangeYearAttended = (value: any) => {
-    setFormValues({ ...formValues, yearAttended: value });
-  };
 
   const { mutate: signUpMutation, isLoading: isSigningUp } = useMutation(
     (payload: { data: SignUpValues; password: string }) => {
@@ -272,25 +241,16 @@ const Component = ({}: Props) => {
     <Container>
       <DetailsWrapper>
         <InformationContainer>
-          {steps === 0 ? (
-            <InformationWrapper>
-              <LogoIcon src={Logo} />
-              <InformationHeader>
-                Get the latest news and events for the Youth.
-              </InformationHeader>
-              <InformationSubHeader>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </InformationSubHeader>
-            </InformationWrapper>
-          ) : (
-            <Stepper
-              label="Account Registration"
-              activeStep={steps - 1}
-              steps={initialSteps}
-              orientation="vertical"
-            />
-          )}
+          <InformationWrapper>
+            <LogoIcon src={Logo} />
+            <InformationHeader>
+              Get the latest news and events for the Youth.
+            </InformationHeader>
+            <InformationSubHeader>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </InformationSubHeader>
+          </InformationWrapper>
         </InformationContainer>
       </DetailsWrapper>
       <Formik
@@ -312,77 +272,66 @@ const Component = ({}: Props) => {
           const combinedErrors = { ...serverErrors, ...errors };
           return (
             <FormWrapper>
-              {steps === 0 && (
-                <FormCenteredContainer>
-                  <NavigationBar>
-                    <HomepageLinkContainer>
-                      <ArrowBackIos />
-                      <StyledLink to="/home">Return to Homepage</StyledLink>
-                    </HomepageLinkContainer>
-                    <LoginLinkContainer>
-                      <HelperText>Already have an account?</HelperText>
-                      <StyledLink to="/login">Login</StyledLink>
-                    </LoginLinkContainer>
-                  </NavigationBar>
-                  <MainRegistrationHeaderContainer>
-                    <SubHeader title="Create Your Account">
-                      <SubTitle>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod.
-                      </SubTitle>
-                    </SubHeader>
-                  </MainRegistrationHeaderContainer>
+              <FormCenteredContainer>
+                <NavigationBar>
+                  <HomepageLinkContainer>
+                    <ArrowBackIos />
+                    <StyledLink to="/home">Return to Homepage</StyledLink>
+                  </HomepageLinkContainer>
+                  <LoginLinkContainer>
+                    <HelperText>Already have an account?</HelperText>
+                    <StyledLink to="/login">Login</StyledLink>
+                  </LoginLinkContainer>
+                </NavigationBar>
+                <MainRegistrationHeaderContainer>
+                  <SubHeader title="Create Your Account">
+                    <SubTitle>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod.
+                    </SubTitle>
+                  </SubHeader>
+                </MainRegistrationHeaderContainer>
 
-                  <SocialMedia />
-                  <HelperText>or create using our own form</HelperText>
-                  <RegistrationForm
-                    initialValue={values}
-                    birthDate={values.birthdate}
-                    errors={{
-                      firstName:
-                        (touched.firstName && combinedErrors.firstName) || '',
-                      middleName:
-                        (touched.middleName && combinedErrors.middleName) || '',
-                      phoneNumber:
-                        (touched.phoneNumber && combinedErrors.phoneNumber) ||
-                        '',
-                      email: (touched.email && combinedErrors.email) || '',
-                      gender: (touched.gender && combinedErrors.gender) || '',
-                      lastName:
-                        (touched.lastName && combinedErrors.lastName) || '',
-                      password:
-                        (touched.password && combinedErrors.password) || '',
-                    }}
-                    setFieldTouched={setFieldTouched}
-                    onChangeGender={handleChange('gender')}
-                    onChangeFirstName={handleChange('firstName')}
-                    onChangeLastName={handleChange('lastName')}
-                    onChangeMiddleName={handleChange('middleName')}
-                    onChangePassword={handleChange('password')}
-                    onChangePhone={handleChange('phoneNumber')}
-                    onChangeEmail={handleChange('email')}
-                    onChangeBirthdate={setFieldValue}
-                    onRegister={handleSubmit}
-                    isLoading={isSigningUp}
-                    disabled={!isValid}
-                  />
-                  <MobileNavigation>
-                    <Divider />
-                    <LoginLinkContainer>
-                      <HelperText>Already have an account?</HelperText>
-                      <StyledLink to="/">Login</StyledLink>
-                    </LoginLinkContainer>
-                  </MobileNavigation>
-                </FormCenteredContainer>
-              )}
-
-              <SetProfile
-                handleChangeStep={(step: number) => setSteps(step)}
-                initialStep={steps}
-                handleChangeYearAttended={handleChangeYearAttended}
-                handleEducationStatusChange={handleEducationStatusChange}
-                formValues={formValues}
-              />
+                <SocialMedia />
+                <HelperText>or create using our own form</HelperText>
+                <RegistrationForm
+                  initialValue={values}
+                  birthDate={values.birthdate}
+                  errors={{
+                    firstName:
+                      (touched.firstName && combinedErrors.firstName) || '',
+                    middleName:
+                      (touched.middleName && combinedErrors.middleName) || '',
+                    phoneNumber:
+                      (touched.phoneNumber && combinedErrors.phoneNumber) || '',
+                    email: (touched.email && combinedErrors.email) || '',
+                    gender: (touched.gender && combinedErrors.gender) || '',
+                    lastName:
+                      (touched.lastName && combinedErrors.lastName) || '',
+                    password:
+                      (touched.password && combinedErrors.password) || '',
+                  }}
+                  setFieldTouched={setFieldTouched}
+                  onChangeGender={handleChange('gender')}
+                  onChangeFirstName={handleChange('firstName')}
+                  onChangeLastName={handleChange('lastName')}
+                  onChangeMiddleName={handleChange('middleName')}
+                  onChangePassword={handleChange('password')}
+                  onChangePhone={handleChange('phoneNumber')}
+                  onChangeEmail={handleChange('email')}
+                  onChangeBirthdate={setFieldValue}
+                  onRegister={handleSubmit}
+                  isLoading={isSigningUp}
+                  disabled={!isValid}
+                />
+                <MobileNavigation>
+                  <Divider />
+                  <LoginLinkContainer>
+                    <HelperText>Already have an account?</HelperText>
+                    <StyledLink to="/">Login</StyledLink>
+                  </LoginLinkContainer>
+                </MobileNavigation>
+              </FormCenteredContainer>
             </FormWrapper>
           );
         }}

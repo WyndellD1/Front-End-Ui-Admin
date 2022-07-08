@@ -28,9 +28,11 @@ const Template: Story<RegistrationFormProps> = (
   );
 };
 
-const PersonalInformationTemplate: Story<PersonalInformationProps> = () => (
+const PersonalInformationTemplate: Story<PersonalInformationProps> = (
+  props: PersonalInformationProps,
+) => (
   <BrowserRouter>
-    <PersonalInformation />
+    <PersonalInformation {...props} />
   </BrowserRouter>
 );
 

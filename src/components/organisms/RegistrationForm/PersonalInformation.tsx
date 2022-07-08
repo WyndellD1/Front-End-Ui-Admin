@@ -50,9 +50,16 @@ const ButtonContainer = styled.div`
 export type Props = {
   clickNext?: () => void;
   clickPrevious?: () => void;
+  isFetchingSitios?: boolean;
+  sitios: { label: string; value: number }[];
 };
 
-const Component = ({ clickNext, clickPrevious }: Props) => {
+const Component = ({
+  clickNext,
+  clickPrevious,
+  isFetchingSitios,
+  sitios,
+}: Props) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -62,7 +69,9 @@ const Component = ({ clickNext, clickPrevious }: Props) => {
           fullWidth
           variant="outlined"
           label="Sitio"
-          items={[{ value: 10, label: '10' }]}
+          items={sitios}
+          isAsync
+          isLoading={isFetchingSitios}
         />
       </Grid>
       <Grid item xs={12} md={6}>
