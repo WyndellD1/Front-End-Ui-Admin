@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Divider } from '@mui/material';
 import { ArrowBackIos } from '@mui/icons-material';
 import { Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { theme } from '../../../config';
 import Logo from '../../../assets/images/Logo.png';
 import { SubHeader } from '../../molecules/SubHeader';
@@ -13,6 +13,7 @@ import { useAuthHooks } from '../../../hooks/auth';
 import { useMutation } from 'react-query';
 import { LoginSchema } from './validation';
 import { AxiosError } from 'axios';
+import { User } from '../../../domain/entities/user';
 
 export type Props = {};
 
@@ -32,6 +33,10 @@ const DetailsWrapper = styled.div`
       ${theme.colors.primary02} 100%
     )
     0% 0% no-repeat padding-box;
+
+  @media ${theme.breakpoints.mobileAndTablet} {
+    display: none;
+  }
 `;
 
 const InformationContainer = styled.div`
@@ -157,6 +162,7 @@ const Component = ({}: Props) => {
   const { useLogin } = useAuthHooks();
   const { login } = useLogin();
   const [apiError, setApiError] = useState('');
+  const navigate = useNavigate();
 
   const { mutate: loginMutation, isLoading: isLoggingIn } = useMutation(
     (payload: { email: string; password: string; remember: boolean }) => {
@@ -164,6 +170,14 @@ const Component = ({}: Props) => {
       return login(email, password, remember);
     },
     {
+      onSuccess: (result) => {
+        const res = result as { user: User };
+        if (res.user.isVerified) {
+          navigate('/set-profile', { state: { step: 1 } });
+        } else {
+          navigate('/about');
+        }
+      },
       onError: (error) => {
         const err = error as AxiosError;
         const errMessage = err.response?.data as {
