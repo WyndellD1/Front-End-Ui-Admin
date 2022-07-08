@@ -91,8 +91,6 @@ const Component = ({}: Props): React.ReactElement => {
       return customUrlRequest(String(url));
     },
     {
-      onSuccess: (data) => console.log(data),
-      onError: (err) => console.log(err),
       enabled: !!url,
     },
   );
@@ -110,6 +108,10 @@ const Component = ({}: Props): React.ReactElement => {
               details: res,
             },
           });
+
+          if (res.email_verified_at) {
+            navigate('/set-profile', { state: { step: 1 } });
+          }
         }
       },
     },

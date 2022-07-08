@@ -5,6 +5,7 @@ import { EmailVerifiedPage } from '../../components/pages/EmailVerified';
 import { HomePage } from '../../components/pages/Home';
 import { LoginPage } from '../../components/pages/Login';
 import { RegisterPage } from '../../components/pages/Register';
+import { SetProfilePage } from '../../components/pages/SetProfile';
 import { VerifyEmailPage } from '../../components/pages/VerifyEmail';
 import { useGlobalState } from '../../hooks/global';
 
@@ -27,6 +28,7 @@ const ProtectedRoutes = () => {
       <Route path="/*" element={<Navigate to="/about" />} />
       <Route path="about" element={<AboutPage />} />
       <Route path="/" element={<HomePage />} />
+      <Route path="set-profile" element={<SetProfilePage />} />
     </Routes>
   );
 };

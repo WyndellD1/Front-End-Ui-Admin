@@ -31,7 +31,7 @@ export default class AuthServiceRestImpl implements AuthService {
       remember,
     });
 
-    return { user: response };
+    return { user: response.data.data };
   }
 
   signUp = async (
