@@ -328,7 +328,7 @@ const Component = ({}: Props) => {
                   <Divider />
                   <LoginLinkContainer>
                     <HelperText>Already have an account?</HelperText>
-                    <StyledLink to="/">Login</StyledLink>
+                    <StyledLink to="/login">Login</StyledLink>
                   </LoginLinkContainer>
                 </MobileNavigation>
               </FormCenteredContainer>
