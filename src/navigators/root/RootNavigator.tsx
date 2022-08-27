@@ -7,6 +7,7 @@ import { LoginPage } from '../../components/pages/Login';
 import { RegisterPage } from '../../components/pages/Register';
 import { SetProfilePage } from '../../components/pages/SetProfile';
 import { VerifyEmailPage } from '../../components/pages/VerifyEmail';
+import { YouthProfilePage } from '../../components/pages/YouthProfile';
 import { useGlobalState } from '../../hooks/global';
 
 const UnprotectedRoutes = () => {
@@ -18,6 +19,7 @@ const UnprotectedRoutes = () => {
       <Route path="login" element={<LoginPage />} />
       <Route path="verify-email" element={<VerifyEmailPage />} />
       <Route path="verify-email-success" element={<EmailVerifiedPage />} />
+      <Route path="youth-profile" element={<YouthProfilePage />} />
     </Routes>
   );
 };
