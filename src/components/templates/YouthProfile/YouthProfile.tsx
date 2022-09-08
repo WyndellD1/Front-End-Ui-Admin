@@ -5,15 +5,15 @@ import { ProfileHeader } from '../../molecules/ProfileHeader';
 import {
   FourthCouncilor,
 } from '../../../assets/images/homepage/section-04-councilors';
-import ProfileDashboard  from './ProfileDashboard';
+import ProfileDashboard from './ProfileDashboard';
 import { Divider } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import YourEvents  from './YourEvents';
-import YouthPoints  from './YouthPoints';
-import Donations  from './Donations';
+import YourEvents from './YourEvents';
+import YouthPoints from './YouthPoints';
+import Donations from './Donations';
 
 const Container = styled.div`
   display: flex;
@@ -124,41 +124,41 @@ position: absolute;
 top: 13.5em; left: 7em;
 
 `;
- 
-  interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-  }
-  
-  function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
 
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`vertical-tabpanel-${index}`}
-        aria-labelledby={`vertical-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
-  
-  function a11yProps(index: number) {
-    return {
-      id: `vertical-tab-${index}`,
-      'aria-controls': `vertical-tabpanel-${index}`,
-    };
-  }
-  
- export default function VerticalTabs() {
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
+
+export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -171,69 +171,67 @@ top: 13.5em; left: 7em;
     email: string
     phonum: number
   }
-    const defaultData: Person[] = [
-      {
-        firstName: 'Christian',
-        lastName: 'Barral',
-        email: 'barral@gmail.com',
-        phonum: 9494949494,
-      }
-    ]
-    
+  const defaultData: Person[] = [
+    {
+      firstName: 'Christian',
+      lastName: 'Barral',
+      email: 'barral@gmail.com',
+      phonum: 9494949494,
+    }
+  ]
+
   return (
     <Container>
       <ProfileHeader />
-      <DetailsWrapper/>
+      <DetailsWrapper />
       <UserContainer>
         <StyledYouthImage src={FourthCouncilor} />
         <table>
-        {defaultData.map((item: {
-          [x: string]: ReactNode; firstName: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; 
-}, i: React.Key | null | undefined) => (
-          <><tr key={i}>
-            <th><UserFname>{item.firstName}</UserFname></th>
-            <th><UserLname>{item.lastName}</UserLname></th>
-          </tr><tr>
-              <td><Email>{item.email}</Email></td>
+          {defaultData.map((item: any, index) => (
+            <><tr key={index}>
+              <th><UserFname>{item?.firstName}</UserFname></th>
+              <th><UserLname>{item?.lastName}</UserLname></th>
             </tr><tr>
-              <td><Phonum>{item.phonum}</Phonum></td>
-            </tr></> ))}
-      </table>
+                <td><Email>{item?.email}</Email></td>
+              </tr><tr>
+                <td><Phonum>{item?.phonum}</Phonum></td>
+              </tr></>))}
+        </table>
       </UserContainer>
-    
-  <NavContainer>
-       <Divider/>
-      <Tabs
-        orientation="vertical"
-        value={value}
-        onChange={handleChange}
-        
-      >
-        <Tab label="Profile" {...a11yProps(0)} />
-        <Tab label="Your Events" {...a11yProps(1)} />
-        <Tab label="Youth Points" {...a11yProps(2)} />
-        <Tab label="Donations" {...a11yProps(3)} />
-        <Tab label="Account Settings" {...a11yProps(4)} />
-      </Tabs>
+
+      <NavContainer>
+        <Divider />
+        <Tabs
+          orientation="vertical"
+          value={value}
+          onChange={handleChange}
+
+        >
+          <Tab label="Profile" {...a11yProps(0)} />
+          <Tab label="Your Events" {...a11yProps(1)} />
+          <Tab label="Youth Points" {...a11yProps(2)} />
+          <Tab label="Donations" {...a11yProps(3)} />
+          <Tab label="Account Settings" {...a11yProps(4)} />
+        </Tabs>
       </NavContainer>
-    
+
       <TabPanel value={value} index={0}>
-      <ProfileDashboard/>
+        <ProfileDashboard />
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <YourEvents/>
+        <YourEvents />
       </TabPanel>
       <TabPanel value={value} index={2}>
-      <YouthPoints/>
+        <YouthPoints />
       </TabPanel>
       <TabPanel value={value} index={3}>
-      <Donations/>
+        <Donations />
       </TabPanel>
       <TabPanel value={value} index={4}>
-      <ProfileDashboard/>
+        <ProfileDashboard />
       </TabPanel>
-     
-     
+
+
     </Container>
   );
 };

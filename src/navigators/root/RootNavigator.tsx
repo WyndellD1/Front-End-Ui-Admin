@@ -19,7 +19,7 @@ const UnprotectedRoutes = () => {
       <Route path="login" element={<LoginPage />} />
       <Route path="verify-email" element={<VerifyEmailPage />} />
       <Route path="verify-email-success" element={<EmailVerifiedPage />} />
-      <Route path="youth-profile" element={<YouthProfilePage />} />
+      {/* <Route path="youth-profile" element={<YouthProfilePage />} /> */}
     </Routes>
   );
 };
@@ -31,6 +31,7 @@ const ProtectedRoutes = () => {
       <Route path="about" element={<AboutPage />} />
       <Route path="home" element={<HomePage />} />
       <Route path="set-profile" element={<SetProfilePage />} />
+      <Route path="youth-profile" element={<YouthProfilePage />} />
     </Routes>
   );
 };

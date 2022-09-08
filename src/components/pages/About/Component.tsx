@@ -4,17 +4,18 @@ import { useGlobalState } from '../../../hooks/global';
 
 type Props = {};
 
-const Component = ({}: Props) => {
+const Component = ({ }: Props) => {
   const navigate = useNavigate();
   const {
     useCurrentUser: { currentUser },
   } = useGlobalState();
 
-  useEffect(() => {
-    if (currentUser?.user.isVerified) {
-      navigate('/set-profile', { state: { step: 1 } });
-    }
-  }, [currentUser?.user.isVerified]);
+  // useEffect(() => {
+  //   if (currentUser?.user.isVerified) {
+  //     navigate('/youth-profile');
+  //     // navigate('/set-profile', { state: { step: 1 } });
+  //   }
+  // }, [currentUser?.user.isVerified]);
 
   return (
     <div>
