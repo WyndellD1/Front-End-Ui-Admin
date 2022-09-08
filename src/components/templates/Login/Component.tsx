@@ -152,7 +152,7 @@ const AdditionalInformation = styled.div`
   gap: 2em;
 `;
 
-const Component = ({}: Props) => {
+const Component = ({ }: Props) => {
   const initialValue = {
     email: '',
     password: '',
@@ -172,8 +172,9 @@ const Component = ({}: Props) => {
     {
       onSuccess: (result) => {
         const res = result as { user: User };
-        if (res.user.isVerified) {
-          navigate('/set-profile', { state: { step: 1 } });
+        if (res.user?.isVerified) {
+          navigate('/youth-profile');
+          // navigate('/set-profile', { state: { step: 1 } });
         } else {
           navigate('/about');
         }
