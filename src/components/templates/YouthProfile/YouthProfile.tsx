@@ -189,12 +189,12 @@ export default function VerticalTabs() {
         <table>
           {defaultData.map((item: any, index) => (
             <><tr key={index}>
-              <th><UserFname>{item.firstName}</UserFname></th>
-              <th><UserLname>{item.lastName}</UserLname></th>
+              <th><UserFname>{item?.firstName}</UserFname></th>
+              <th><UserLname>{item?.lastName}</UserLname></th>
             </tr><tr>
-                <td><Email>{item.email}</Email></td>
+                <td><Email>{item?.email}</Email></td>
               </tr><tr>
-                <td><Phonum>{item.phonum}</Phonum></td>
+                <td><Phonum>{item?.phonum}</Phonum></td>
               </tr></>))}
         </table>
       </UserContainer>
