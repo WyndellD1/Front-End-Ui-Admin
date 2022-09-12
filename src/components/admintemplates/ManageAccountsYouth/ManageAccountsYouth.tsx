@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../../config';
-import { ProfileHeader } from '../../molecules/ProfileHeader';
+import { AdminHeader } from '../../molecules/AdminHeader';
 import event from '../../../assets/images/homepage/section-2-the-council-goes-online/event.png';
 import { Divider } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
@@ -131,7 +131,7 @@ const Event = styled.div<{ img: string }>`
     
   return (
     <Container>
-      <ProfileHeader />
+      <AdminHeader />
       
         
  
